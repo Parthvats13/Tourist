@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		1208A05F2DA91C83001B4189 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1208A05E2DA91C83001B4189 /* MapKit.framework */; };
 		1208A0622DA91DA9001B4189 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 1208A0612DA91DA9001B4189 /* Alamofire */; };
-		1208A0642DA91DA9001B4189 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1208A0632DA91DA9001B4189 /* AlamofireDynamic */; };
 		1208A0672DA91F4A001B4189 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1208A0662DA91F4A001B4189 /* SnapKit */; };
-		1208A0692DA91F4A001B4189 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1208A0682DA91F4A001B4189 /* SnapKit-Dynamic */; };
 		1208A06C2DA9202C001B4189 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1208A06B2DA9202C001B4189 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -34,10 +32,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1208A06C2DA9202C001B4189 /* Kingfisher in Frameworks */,
-				1208A0692DA91F4A001B4189 /* SnapKit-Dynamic in Frameworks */,
 				1208A05F2DA91C83001B4189 /* MapKit.framework in Frameworks */,
 				1208A0672DA91F4A001B4189 /* SnapKit in Frameworks */,
-				1208A0642DA91DA9001B4189 /* AlamofireDynamic in Frameworks */,
 				1208A0622DA91DA9001B4189 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,9 +87,7 @@
 			name = Tourist;
 			packageProductDependencies = (
 				1208A0612DA91DA9001B4189 /* Alamofire */,
-				1208A0632DA91DA9001B4189 /* AlamofireDynamic */,
 				1208A0662DA91F4A001B4189 /* SnapKit */,
-				1208A0682DA91F4A001B4189 /* SnapKit-Dynamic */,
 				1208A06B2DA9202C001B4189 /* Kingfisher */,
 			);
 			productName = Tourist;
@@ -393,20 +387,10 @@
 			package = 1208A0602DA91DA9001B4189 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		1208A0632DA91DA9001B4189 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1208A0602DA91DA9001B4189 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
-		};
 		1208A0662DA91F4A001B4189 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1208A0652DA91F4A001B4189 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		1208A0682DA91F4A001B4189 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1208A0652DA91F4A001B4189 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 		1208A06B2DA9202C001B4189 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
