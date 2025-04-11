@@ -1,0 +1,98 @@
+[
+    {
+      "id": "9d3c2b1a-0f9e-8d7c-6b5a-4d3c2b1a0f9e",
+      "name": "Rahul Thakur",
+      "profileImage": "guide_rahul",
+      "specialty": ["Trekking", "Photography"],
+      "languages": ["English", "Hindi", "German"],
+      "rating": 4.9,
+      "reviewCount": 127,
+      "yearsExperience": 7,
+      "regions": ["Manali", "Spiti Valley", "Lahaul"],
+      "bio": "Born and raised in Manali, I've spent my life exploring the mountains of Himachal. I specialize in trekking routes and hidden spots for photography. I enjoy showing visitors the authentic Himachali culture and connecting them with local communities.",
+      "reviews": [
+        {
+          "id": "8c2b1a0f-9e8d-7c6b-5a4d-3c2b1a0f9e8d",
+          "userName": "Alex Smith",
+          "userImage": "review_user1",
+          "rating": 5,
+          "date": "2025-03-27T00:00:00Z",
+          "comment": "Rahul took us on an amazing trek to Hampta Pass. His knowledge of the area and photography tips made our trip exceptional."
+        },
+        {
+          "id": "7b1a0f9e-8d7c-6b5a-4d3c-2b1a0f9e8d7c",
+          "userName": "Sophie Chen",
+          "userImage": "review_user2",
+          "rating": 5,
+          "date": "2025-03-12T00:00:00Z",
+          "comment": "We had a wonderful experience with Rahul in Spiti Valley. He knows all the best spots and is very considerate of different fitness levels."
+        }
+      ]
+    },
+    {
+      "id": "6a0f9e8d-7c6b-5a4d-3c2b-1a0f9e8d7c6b",
+      "name": "Priya Sharma",
+      "profileImage": "guide_priya",
+      "specialty": ["Culture", "Food"],
+      "languages": ["English", "Hindi", "French"],
+      "rating": 4.8,
+      "reviewCount": 98,
+      "yearsExperience": 5,
+      "regions": ["Shimla", "Dharamshala", "Kangra Valley"],
+      "bio": "As a cultural enthusiast and foodie, I love sharing Himachal's rich traditions and cuisine. My tours focus on authentic experiences, from traditional Himachali cooking classes to meeting local artisans and exploring ancient temples.",
+      "reviews": [
+        {
+          "id": "59f9e8d7-c6b5-a4d3-c2b1-a0f9e8d7c6b5",
+          "userName": "Maria Gonzalez",
+          "userImage": "review_user3",
+          "rating": 5,
+          "date": "2025-04-01T00:00:00Z",
+          "comment": "Priya's food tour in Dharamshala was the highlight of our trip! We discovered incredible local dishes we would have never found on our own."
+        }
+      ]
+    },
+    {
+      "id": "49e8d7c6-b5a4-d3c2-b1a0-f9e8d7c6b5a4",
+      "name": "Vikram Negi",
+      "profileImage": "guide_vikram",
+      "specialty": ["Adventure", "Wildlife"],
+      "languages": ["English", "Hindi", "Spanish"],
+      "rating": 4.7,
+      "reviewCount": 84,
+      "yearsExperience": 9,
+      "regions": ["Dalhousie", "Chamba", "Great Himalayan National Park"],
+      "bio": "Adventure enthusiast and certified wildlife expert. I organize rafting, paragliding, and wildlife safaris across Himachal Pradesh. My specialty is tracking wildlife in the Great Himalayan National Park while ensuring responsible tourism practices.",
+      "reviews": [
+        {
+          "id": "38d7c6b5-a4d3-c2b1-a0f9-e8d7-c6b5a4d3",
+          "userName": "John Doe",
+          "userImage": "review_user4",
+          "rating": 4,
+          "date": "2025-02-15T00:00:00Z",
+          "comment": "Vikram's wildlife tour was exceptional. We spotted several Himalayan birds and even caught a glimpse of a leopard. Highly recommended for nature lovers."
+        }
+      ]
+    },
+    {
+      "id": "27c6b5a4-d3c2-b1a0-f9e8-d7c6-b5a4d3c2",
+      "name": "Tenzin Dorje",
+      "profileImage": "guide_tenzin",
+      "specialty": ["Yoga", "Meditation"],
+      "languages": ["English", "Hindi", "Tibetan", "Japanese"],
+      "rating": 4.9,
+      "reviewCount": 112,
+      "yearsExperience": 6,
+      "regions": ["McLeodganj", "Dharamshala", "Bir Billing"],
+      "bio": "Born in Tibet and raised in Dharamshala, I offer authentic yoga and meditation retreats in the Himalayan foothills. My tours combine spiritual practices with visits to monasteries and meetings with Buddhist scholars.",
+      "reviews": [
+        {
+          "id": "16b5a4d3-c2b1-a0f9-e8d7-c6b5-a4d3c2b1",
+          "userName": "Emma Wilson",
+          "userImage": "review_user5",
+          "rating": 5,
+          "date": "2025-03-22T00:00:00Z",
+          "comment": "Tenzin's meditation retreat changed my life. The combination of stunning landscapes and authentic spiritual practices was perfect."
+        }
+      ]
+    }
+  ]

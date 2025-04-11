@@ -1,0 +1,92 @@
+{
+    "name": "Mountain Explorer",
+    "profileImage": "user_profile",
+    "totalVisits": 12,
+    "collectedStamps": [
+      {
+        "id": "65a4e3d2-c1b0-a9e8-d7c6-b5a4-e3d2c1b0",
+        "location": "Shimla",
+        "icon": "🏔",
+        "date": "2025-01-10T00:00:00Z"
+      },
+      {
+        "id": "54a3e2d1-c0b9-a8e7-d6c5-b4a3-e2d1c0b9",
+        "location": "Manali",
+        "icon": "❄️",
+        "date": "2025-02-09T00:00:00Z"
+      },
+      {
+        "id": "43a2e1d0-c9b8-a7e6-d5c4-b3a2-e1d0c9b8",
+        "location": "Dharamshala",
+        "icon": "🧘",
+        "date": "2025-03-12T00:00:00Z"
+      },
+      {
+        "id": "32a1e0d9-c8b7-a6e5-d4c3-b2a1-e0d9c8b7",
+        "location": "Dalhousie",
+        "icon": "⛰",
+        "date": "2025-03-27T00:00:00Z"
+      },
+      {
+        "id": "21a0e9d8-c7b6-a5e4-d3c2-b1a0-e9d8c7b6",
+        "location": "McLeodganj",
+        "icon": "🙏",
+        "date": "2025-04-01T00:00:00Z"
+      },
+      {
+        "id": "10a9e8d7-c6b5-a4e3-d2c1-b0a9-e8d7c6b5",
+        "location": "Kasauli",
+        "icon": "🌲",
+        "date": "2025-04-06T00:00:00Z"
+      }
+    ],
+    "journeys": [
+      {
+        "id": "09a8e7d6-c5b4-a3e2-d1c0-b9a8-e7d6c5b4",
+        "title": "Winter Wonderland",
+        "startDate": "2025-01-10T00:00:00Z",
+        "endDate": "2025-01-16T00:00:00Z",
+        "waypoints": ["Shimla", "Kufri", "Narkanda", "Chail"],
+        "status": "Completed"
+      },
+      {
+       "id": "f8a7e6d5-c4b3-a2e1-d0c9-b8a7-e6d5c4b3",
+      "title": "Spiritual Retreat",
+      "startDate": "2025-03-12T00:00:00Z",
+      "endDate": "2025-03-17T00:00:00Z",
+      "waypoints": ["Dharamshala", "McLeodganj", "Triund", "Bhagsu"],
+      "status": "Completed"
+    },
+    {
+      "id": "e7a6d5c4-b3a2-e1d0-c9b8-a7e6-d5c4b3a2",
+      "title": "Adventure Trail",
+      "startDate": "2025-05-01T00:00:00Z",
+      "endDate": "2025-05-06T00:00:00Z",
+      "waypoints": ["Manali", "Solang", "Rohtang Pass", "Sissu", "Keylong"],
+      "status": "Upcoming"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "d6a5c4b3-a2e1-d0c9-b8a7-e6d5-c4b3a2e1",
+      "location": "Triund Trek Summit",
+      "description": "Reached the top after a 4-hour trek. The view of Dhauladhar range is absolutely breathtaking!",
+      "image": "triund_contribution",
+      "date": "2025-03-15T00:00:00Z"
+    },
+    {
+      "id": "c5a4b3a2-e1d0-c9b8-a7e6-d5c4-b3a2e1d0",
+      "location": "Cafe at Old Manali",
+      "description": "Found this hidden gem with the best apple cinnamon pie and a view of the river.",
+      "image": "manali_cafe_contribution",
+      "date": "2025-02-12T00:00:00Z"
+    },
+    {
+      "id": "b4a3c2b1-e0d9-c8b7-a6e5-d4c3-b2a1e0d9",
+      "location": "Prashar Lake",
+      "description": "The lake is surrounded by snow-covered peaks. Go early to avoid crowds.",
+      "image": "prashar_lake_contribution",
+      "date": "2025-02-20T00:00:00Z"
+    }
+  ]
+}

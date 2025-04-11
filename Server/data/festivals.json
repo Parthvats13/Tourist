@@ -1,0 +1,42 @@
+[
+    {
+      "id": "05a4d3c2-b1a0-f9e8-d7c6-b5a4-d3c2b1a0",
+      "name": "Kullu Dussehra",
+      "location": "Kullu",
+      "image": "kullu_dussehra",
+      "date": "2025-04-26T00:00:00Z",
+      "description": "A week-long celebration featuring processions of local deities, cultural performances, and crafts fair."
+    },
+    {
+      "id": "f4a3d2c1-b0a9-e8d7-c6b5-a4d3-c2b1a0f9",
+      "name": "Minjar Fair",
+      "location": "Chamba",
+      "image": "minjar_fair",
+      "date": "2025-05-11T00:00:00Z",
+      "description": "Traditional fair celebrating the corn harvest season with folk dances, music, and ceremonial processions."
+    },
+    {
+      "id": "e3a2d1c0-b9a8-e7d6-c5b4-a3d2-c1b0a9e8",
+      "name": "Losar Festival",
+      "location": "Spiti Valley",
+      "image": "losar_festival",
+      "date": "2025-05-31T00:00:00Z",
+      "description": "Tibetan New Year celebration with mask dances, monastery prayers, and traditional food."
+    },
+    {
+      "id": "d2a1c0b9-a8e7-d6c5-b4a3-d2c1-b0a9e8d7",
+      "name": "Mandi Shivratri Fair",
+      "location": "Mandi",
+      "image": "mandi_shivratri",
+      "date": "2025-07-15T00:00:00Z",
+      "description": "Seven-day international fair dedicated to Lord Shiva with over 200 local deities participating."
+    },
+    {
+      "id": "c1a0b9a8-e7d6-c5b4-a3d2-c1b0-a9e8d7c6",
+      "name": "Halda Festival",
+      "location": "Lahaul",
+      "image": "halda_festival",
+      "date": "2025-08-01T00:00:00Z",
+      "description": "Traditional harvest festival where locals wear colorful clothes and perform folk dances."
+    }
+  ]

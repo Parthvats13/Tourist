@@ -1,0 +1,265 @@
+[
+    {
+      "id": "3a7acb8f-411d-4852-a4c7-88ff13b3bd75",
+      "date": "2025-05-01T00:00:00Z",
+      "mainLocation": "Shimla",
+      "mainImage": "shimla_image",
+      "highlights": [
+        "The Ridge",
+        "Mall Road",
+        "Jakhu Temple",
+        "Christ Church",
+        "Kufri Adventure Park"
+      ],
+      "altitude": 2206,
+      "locationLatitude": 31.1048,
+      "locationLongitude": 77.1734,
+      "hasWeatherAlert": false,
+      "weatherAlert": null,
+      "roadAlerts": [],
+      "attractions": [
+        {
+          "id": "9f8b1e9c-4f8d-4b5b-9e6d-7d3c4f5a2e1b",
+          "name": "The Ridge",
+          "description": "Large open space in the heart of Shimla with panoramic views of the surrounding mountains.",
+          "image": "shimla_ridge",
+          "bestTimeToVisit": "Evening",
+          "difficulty": null
+        },
+        {
+          "id": "8e7d6c5b-4a3b-2c1d-0e9f-8a7b6c5d4e3f",
+          "name": "Jakhu Temple",
+          "description": "Ancient temple dedicated to Lord Hanuman with a 108-feet tall statue.",
+          "image": "jakhu_temple",
+          "bestTimeToVisit": "Morning",
+          "difficulty": "Moderate"
+        },
+        {
+          "id": "7f6e5d4c-3b2a-1c0d-9e8f-7d6e5f4d3c2b",
+          "name": "Mall Road",
+          "description": "The main street of Shimla with shops, restaurants, and colonial buildings.",
+          "image": "mall_road",
+          "bestTimeToVisit": "Afternoon",
+          "difficulty": null
+        }
+      ],
+      "foodRecommendations": [
+        {
+          "id": "6e5d4c3b-2a1f-0e9d-8c7b-6e5d4c3b2a1f",
+          "name": "Madra",
+          "description": "Traditional Himachali dish made with chickpeas cooked in yogurt gravy.",
+          "image": "madra_food",
+          "tags": ["Vegetarian", "Local", "Spicy"],
+          "bestPlace": "Himachali Rasoi"
+        },
+        {
+          "id": "5d4c3b2a-1f0e-9d8c-7b6a-5d4c3b2a1f0e",
+          "name": "Sidu",
+          "description": "A type of bread stuffed with poppy seeds, served with ghee.",
+          "image": "sidu_food",
+          "tags": ["Vegetarian", "Breakfast"],
+          "bestPlace": "Ashiana Restaurant"
+        }
+      ],
+      "activities": [
+        {
+          "id": "4c3b2a1f-0e9d-8c7b-6a5d-4c3b2a1f0e9d",
+          "name": "Heritage Walk",
+          "description": "Explore colonial architecture and historical buildings around Mall Road and The Ridge.",
+          "icon": "figure.walk",
+          "difficulty": "Easy",
+          "duration": "2-3 hours"
+        },
+        {
+          "id": "3b2a1f0e-9d8c-7b6a-5d4c-3b2a1f0e9d8c",
+          "name": "Toy Train Ride",
+          "description": "Experience the UNESCO World Heritage Kalka-Shimla railway journey.",
+          "icon": "tram.fill",
+          "difficulty": null,
+          "duration": "5-6 hours"
+        }
+      ]
+    },
+    {
+      "id": "2a1f0e9d-8c7b-6a5d-4c3b-2a1f0e9d8c7b",
+      "date": "2025-05-02T00:00:00Z",
+      "mainLocation": "Manali",
+      "mainImage": "manali_image",
+      "highlights": [
+        "Rohtang Pass",
+        "Solang Valley",
+        "Hidimba Devi Temple",
+        "Old Manali",
+        "Vashisht Hot Springs"
+      ],
+      "altitude": 2050,
+      "locationLatitude": 32.2396,
+      "locationLongitude": 77.1887,
+      "hasWeatherAlert": true,
+      "weatherAlert": {
+        "id": "1f0e9d8c-7b6a-5d4c-3b2a-1f0e9d8c7b6a",
+        "type": "Rain",
+        "description": "Moderate to heavy rainfall expected in the afternoon. Plan indoor activities or carry rain gear.",
+        "icon": "cloud.rain"
+      },
+      "roadAlerts": [
+        {
+          "id": "0e9d8c7b-6a5d-4c3b-2a1f-0e9d8c7b6a5d",
+          "road": "Rohtang Pass",
+          "description": "Road open from 8 AM to 4 PM. Permit required for vehicles.",
+          "status": "Caution"
+        }
+      ],
+      "attractions": [
+        {
+          "id": "f0e9d8c7-b6a5-d4c3-b2a1-f0e9d8c7b6a5",
+          "name": "Rohtang Pass",
+          "description": "High mountain pass with snow-capped peaks and breathtaking views.",
+          "image": "rohtang_pass",
+          "bestTimeToVisit": "7 AM - 12 PM",
+          "difficulty": "Moderate"
+        },
+        {
+          "id": "e9d8c7b6-a5d4-c3b2-a1f0-e9d8c7b6a5d4",
+          "name": "Solang Valley",
+          "description": "Adventure sports hub with paragliding, zorbing, and skiing in winter.",
+          "image": "solang_valley",
+          "bestTimeToVisit": "Morning",
+          "difficulty": null
+        },
+        {
+          "id": "d8c7b6a5-d4c3-b2a1-f0e9-d8c7b6a5d4c3",
+          "name": "Hidimba Devi Temple",
+          "description": "Ancient wooden temple dedicated to Hidimba Devi in a cedar forest.",
+          "image": "hidimba_temple",
+          "bestTimeToVisit": "Anytime",
+          "difficulty": "Easy"
+        }
+      ],
+      "foodRecommendations": [
+        {
+          "id": "c7b6a5d4-c3b2-a1f0-e9d8-c7b6a5d4c3b2",
+          "name": "Trout Fish",
+          "description": "Freshwater fish found in the rivers of Himachal, usually grilled or fried.",
+          "image": "trout_fish",
+          "tags": ["Non-Vegetarian", "Specialty"],
+          "bestPlace": "Johnson's Cafe"
+        },
+        {
+          "id": "b6a5d4c3-b2a1-f0e9-d8c7-b6a5d4c3b2a1",
+          "name": "Tudkiya Bhath",
+          "description": "Traditional rice dish cooked with lentils and aromatic spices.",
+          "image": "tudkiya_bhath",
+          "tags": ["Vegetarian", "Lunch"],
+          "bestPlace": "Drifters Inn"
+        }
+      ],
+      "activities": [
+        {
+          "id": "a5d4c3b2-a1f0-e9d8-c7b6-a5d4c3b2a1f0",
+          "name": "River Rafting",
+          "description": "Experience white water rafting in the rapids of Beas River.",
+          "icon": "waterbottle",
+          "difficulty": "Challenging",
+          "duration": "1-2 hours"
+        },
+        {
+          "id": "94d3c2b1-a0f9-e8d7-c6b5-a4d3c2b1a0f9",
+          "name": "Paragliding",
+          "description": "Soar through the sky with a tandem paragliding experience in Solang Valley.",
+          "icon": "airplane",
+          "difficulty": "Moderate",
+          "duration": "15-30 minutes"
+        },
+        {
+          "id": "83c2b1a0-f9e8-d7c6-b5a4-d3c2b1a0f9e8",
+          "name": "Vashisht Hot Springs",
+          "description": "Relax in the natural hot water springs with therapeutic minerals.",
+          "icon": "drop.fill",
+          "difficulty": "Easy",
+          "duration": "1 hour"
+        }
+      ]
+    },
+    {
+      "id": "72b1a0f9-e8d7-c6b5-a4d3-c2b1a0f9e8d7",
+      "date": "2025-05-03T00:00:00Z",
+      "mainLocation": "Dharamshala",
+      "mainImage": "dharamshala_image",
+      "highlights": [
+        "Mcleodganj",
+        "Dharamkot",
+        "Bhagsu Waterfall",
+        "Namgyal Monastery",
+        "Tibet Museum"
+      ],
+      "altitude": 1457,
+      "locationLatitude": 32.2190,
+      "locationLongitude": 76.3234,
+      "hasWeatherAlert": false,
+      "weatherAlert": null,
+      "roadAlerts": [],
+      "attractions": [
+        {
+          "id": "61a0f9e8-d7c6-b5a4-d3c2-b1a0f9e8d7c6",
+          "name": "Mcleodganj",
+          "description": "Little Lhasa of India and home to the Dalai Lama and Tibetan government in exile.",
+          "image": "mcleodganj",
+          "bestTimeToVisit": "All day",
+          "difficulty": "Easy"
+        },
+        {
+          "id": "509f8e7d-6c5b-4a3d-2c1b-09f8e7d6c5b4",
+          "name": "Bhagsu Waterfall",
+          "description": "Beautiful waterfall near Mcleodganj with a small cafe at the base.",
+          "image": "bhagsu_waterfall",
+          "bestTimeToVisit": "Morning",
+          "difficulty": "Moderate"
+        },
+        {
+          "id": "4f8e7d6c-5b4a-3d2c-1b0a-f8e7d6c5b4a3",
+          "name": "Namgyal Monastery",
+          "description": "Personal monastery of the Dalai Lama with Tibetan architecture and art.",
+          "image": "namgyal_monastery",
+          "bestTimeToVisit": "10 AM - 4 PM",
+          "difficulty": "Easy"
+        }
+      ],
+      "foodRecommendations": [
+        {
+          "id": "3e7d6c5b-4a3d-2c1b-0af9-e7d6c5b4a3d2",
+          "name": "Tibetan Momos",
+          "description": "Steamed dumplings filled with vegetables or meat, served with spicy chutney.",
+          "image": "tibetan_momos",
+          "tags": ["Tibetan", "Street Food"],
+          "bestPlace": "Tibet Kitchen"
+        },
+        {
+          "id": "2d6c5b4a-3d2c-1b0a-f9e8-d6c5b4a3d2c1",
+          "name": "Thukpa",
+          "description": "Tibetan noodle soup with vegetables or meat, perfect for cold weather.",
+          "image": "thukpa",
+          "tags": ["Tibetan", "Soup", "Comfort Food"],
+          "bestPlace": "Lung Ta Japanese Restaurant"
+        }
+      ],
+      "activities": [
+        {
+          "id": "1c5b4a3d-2c1b-0af9-e8d7-c5b4a3d2c1b0",
+          "name": "Meditation Class",
+          "description": "Learn meditation techniques from Tibetan Buddhist monks.",
+          "icon": "figure.mind.and.body",
+          "difficulty": "Easy",
+          "duration": "1-2 hours"
+        },
+        {
+          "id": "0b4a3d2c-1b0a-f9e8-d7c6-b4a3d2c1b0af",
+          "name": "Triund Trek",
+          "description": "Popular day trek offering stunning views of the Dhauladhar range.",
+          "icon": "figure.hiking",
+          "difficulty": "Moderate",
+          "duration": "5-6 hours"
+        }
+      ]
+    }
+  ]
