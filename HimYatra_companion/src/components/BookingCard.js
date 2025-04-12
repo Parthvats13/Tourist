@@ -8,8 +8,49 @@ import {
   DialogContent,
   DialogActions,
   Paper,
-  Chip
+  Chip,
+  IconButton,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(3),
+  borderRadius: 16,
+  background: 'linear-gradient(145deg, #1a1f2b 0%, #161923 100%)',
+  color: 'white',
+  position: 'relative',
+  transition: 'all 0.3s ease-in-out',
+  border: '1px solid rgba(255, 255, 255, 0.05)',
+  '&:hover': {
+    transform: 'translateY(-4px)',
+    boxShadow: '0 12px 24px -10px rgba(0, 0, 0, 0.5)',
+  }
+}));
+
+const StatusChip = styled(Chip)(({ status }) => ({
+  borderRadius: '8px',
+  fontWeight: 500,
+  ...(status === 'confirmed' ? {
+    background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+    color: 'white',
+  } : {
+    background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+    color: '#1a1f2b',
+  })
+}));
+
+const InfoLabel = styled(Typography)({
+  color: '#94a3b8',
+  fontSize: '0.875rem',
+  fontWeight: 500,
+  marginBottom: '4px'
+});
+
+const InfoValue = styled(Typography)({
+  color: '#e2e8f0',
+  fontSize: '1rem',
+  fontWeight: 500
+});
 
 const BookingCard = ({ booking, onConfirm }) => {
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
@@ -25,124 +66,133 @@ const BookingCard = ({ booking, onConfirm }) => {
 
   return (
     <>
-      <Paper
-        elevation={3}
-        sx={{
-          p: 3,
-          borderRadius: 2,
-          bgcolor: '#1E1E1E',
-          color: 'white',
-          position: 'relative',
-          '&:hover': {
-            transform: 'translateY(-2px)',
-            transition: 'transform 0.2s'
-          }
-        }}
-      >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-          <Typography variant="h5" component="h3" sx={{ fontWeight: 'bold' }}>
-            {booking.username}
-          </Typography>
-          <Chip
+      <StyledPaper elevation={0}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+          <Box>
+            <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
+              {booking.username}
+            </Typography>
+            <Typography sx={{ color: '#60a5fa', fontWeight: 500 }}>
+              {booking.contact}
+            </Typography>
+          </Box>
+          <StatusChip
             label={booking.status || 'Pending'}
-            sx={{
-              bgcolor: booking.status === 'confirmed' ? '#4CAF50' : '#FFC107',
-              color: 'black'
-            }}
+            status={booking.status}
           />
         </Box>
-
-        <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)', mb: 1 }}>
-          {booking.contact}
-        </Typography>
 
         {booking.block && (
           <Chip
             label={booking.block}
             size="small"
-            sx={{ bgcolor: '#333', color: 'white', mb: 2 }}
+            sx={{
+              bgcolor: 'rgba(96, 165, 250, 0.1)',
+              color: '#60a5fa',
+              border: '1px solid rgba(96, 165, 250, 0.2)',
+              borderRadius: '6px',
+              mb: 3
+            }}
           />
         )}
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3, mb: 3 }}>
           <Box>
-            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-              Check-in
-            </Typography>
-            <Typography variant="body1">{booking.checkIn}</Typography>
+            <InfoLabel>Check-in</InfoLabel>
+            <InfoValue>{booking.checkIn}</InfoValue>
           </Box>
           <Box>
-            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-              Check-out
-            </Typography>
-            <Typography variant="body1">{booking.checkOut}</Typography>
+            <InfoLabel>Check-out</InfoLabel>
+            <InfoValue>{booking.checkOut}</InfoValue>
           </Box>
         </Box>
 
-        <Typography variant="h6" sx={{ color: '#4CAF50', mb: 3 }}>
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            color: '#10b981',
+            fontWeight: 700,
+            mb: 3,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1
+          }}
+        >
           ₹{booking.price.toLocaleString()}
         </Typography>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3, mb: 3 }}>
           <Box>
-            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-              Gender
-            </Typography>
-            <Typography variant="body1">{booking.gender}</Typography>
+            <InfoLabel>Gender</InfoLabel>
+            <InfoValue>{booking.gender}</InfoValue>
           </Box>
           <Box>
-            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-              Nationality
-            </Typography>
-            <Typography variant="body1">{booking.nationality}</Typography>
+            <InfoLabel>Nationality</InfoLabel>
+            <InfoValue>{booking.nationality}</InfoValue>
           </Box>
         </Box>
 
-        <Box>
-          <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-            Domicile
-          </Typography>
-          <Typography variant="body1">{booking.domicile}</Typography>
+        <Box sx={{ mb: 3 }}>
+          <InfoLabel>Domicile</InfoLabel>
+          <InfoValue>{booking.domicile}</InfoValue>
         </Box>
 
         <Button
           variant="contained"
           fullWidth
-          sx={{
-            mt: 3,
-            bgcolor: 'white',
-            color: 'black',
-            '&:hover': {
-              bgcolor: 'rgba(255, 255, 255, 0.9)'
-            }
-          }}
           onClick={handleConfirmClick}
           disabled={booking.status === 'confirmed'}
+          sx={{
+            background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+            color: 'white',
+            py: 1.5,
+            borderRadius: '10px',
+            textTransform: 'none',
+            fontSize: '1rem',
+            fontWeight: 600,
+            '&:hover': {
+              background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+            },
+            '&:disabled': {
+              background: '#1f2937',
+              color: '#4b5563'
+            }
+          }}
         >
           Confirm Booking
         </Button>
-      </Paper>
+      </StyledPaper>
 
       <Dialog
         open={confirmDialogOpen}
         onClose={() => setConfirmDialogOpen(false)}
         PaperProps={{
           sx: {
-            bgcolor: '#1E1E1E',
-            color: 'white'
+            bgcolor: '#1a1f2b',
+            color: 'white',
+            borderRadius: '16px',
+            maxWidth: '400px'
           }
         }}
       >
-        <DialogTitle>Confirm Booking</DialogTitle>
-        <DialogContent>
-          <Typography>
+        <DialogTitle sx={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+          Confirm Booking
+        </DialogTitle>
+        <DialogContent sx={{ my: 2 }}>
+          <Typography sx={{ color: '#e2e8f0' }}>
             Are you sure you want to confirm the booking for {booking.username}?
           </Typography>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ px: 3, pb: 3 }}>
           <Button
             onClick={() => setConfirmDialogOpen(false)}
-            sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+            sx={{
+              color: '#94a3b8',
+              '&:hover': {
+                color: '#e2e8f0',
+                background: 'rgba(255, 255, 255, 0.05)'
+              }
+            }}
           >
             Cancel
           </Button>
@@ -150,10 +200,10 @@ const BookingCard = ({ booking, onConfirm }) => {
             onClick={handleConfirmBooking}
             variant="contained"
             sx={{
-              bgcolor: 'white',
-              color: 'black',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+              color: 'white',
               '&:hover': {
-                bgcolor: 'rgba(255, 255, 255, 0.9)'
+                background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
               }
             }}
           >
