@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "username": "John Smith",
+    "contact": "+91 98765 43210",
+    "price": 12500,
+    "checkIn": "May 15, 2025",
+    "checkOut": "May 20, 2025",
+    "gender": "Male",
+    "nationality": "American",
+    "domicile": "New York",
+    "status": "pending"
+  },
+  {
+    "id": 2,
+    "username": "Priya Sharma",
+    "contact": "+91 87654 32109",
+    "price": 9800,
+    "checkIn": "May 18, 2025",
+    "checkOut": "May 22, 2025",
+    "gender": "Female",
+    "nationality": "Indian",
+    "domicile": "Delhi",
+    "status": "pending"
+  },
+  {
+    "id": 3,
+    "username": "David Chen",
+    "contact": "+91 76543 21098",
+    "price": 15000,
+    "checkIn": "Jun 1, 2025",
+    "checkOut": "Jun 7, 2025",
+    "gender": "Male",
+    "nationality": "Canadian",
+    "domicile": "Toronto",
+    "status": "pending"
+  }
+] 
