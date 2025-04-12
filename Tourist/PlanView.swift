@@ -27,66 +27,92 @@ struct PlanView: View {
             GeometryReader { geometry in
                 ScrollView {
                     VStack(spacing: 20) { // Add spacing between elements
-                        // Form Section
-                        Form {
-                            Section("Destinations") {
-                                TextField("Starting Point (e.g., Shimla)", text: $startDestination)
-                                TextField("Final Destination (e.g., Manali)", text: $endDestination)
-                            }
-                            
-                            Section("Travel Dates") {
-                                // Use minDate for End Date picker correctly
-                                DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
-                                DatePicker("End Date", selection: $endDate, in: startDate..., displayedComponents: .date)
-                            }
-                            
-                            Section("Your Interests") {
-                                InterestSelector(selectedInterests: $selectedInterests)
-                                    .padding(.vertical, 5) // Add padding within the form row
-                            }
-                        }
-                        .scrollDisabled(true) // Disable Form's internal scroll
-                        
-                        // Generate Button - now inside the ScrollView VStack, making it scrollable
-                        Button {
-                            hideKeyboard() // Ensure keyboard dismisses
-                            if isFormValid {
-                                tripPlanner.generateItinerary(
-                                    startDestination: startDestination,
-                                    endDestination: endDestination,
-                                    startDate: startDate,
-                                    endDate: endDate,
-                                    interests: Array(selectedInterests)
-                                )
-                                showItinerary = true
-                            }
-                        } label: {
-                            HStack {
-                                if tripPlanner.isLoading {
-                                    ProgressView()
-                                        .tint(.white) // Make spinner white
-                                } else {
-                                    Image(systemName: "sparkles")
+                        // Form Sections - Using GroupBox for better visual separation
+                        VStack {
+                            GroupBox {
+                                VStack(alignment: .leading, spacing: 16) {
+                                    Text("Destinations")
+                                        .font(.headline)
+                                        .foregroundColor(.secondary)
+                                    
+                                    TextField("Starting Point (e.g., Shimla)", text: $startDestination)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    
+                                    TextField("Final Destination (e.g., Manali)", text: $endDestination)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
                                 }
-                                Text("Generate My Yatra")
-                                    .fontWeight(.semibold)
+                                .padding(.vertical, 8)
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12) // Slightly more vertical padding
+                            
+                            GroupBox {
+                                VStack(alignment: .leading, spacing: 16) {
+                                    Text("Travel Dates")
+                                        .font(.headline)
+                                        .foregroundColor(.secondary)
+                                    
+                                    DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+                                    
+                                    DatePicker("End Date", selection: $endDate, in: startDate..., displayedComponents: .date)
+                                }
+                                .padding(.vertical, 8)
+                            }
+                            
+                            GroupBox {
+                                VStack(alignment: .leading, spacing: 16) {
+                                    Text("Your Interests")
+                                        .font(.headline)
+                                        .foregroundColor(.secondary)
+                                    
+                                    InterestSelector(selectedInterests: $selectedInterests)
+                                        .padding(.vertical, 5)
+                                }
+                                .padding(.vertical, 8)
+                            }
                         }
-                        .buttonStyle(.borderedProminent) // Use prominent style
-                        .tint(.indigo) // Consistent accent color
-                        .controlSize(.large) // Make button larger
-                        .disabled(!isFormValid || tripPlanner.isLoading) // Disable based on validation
                         .padding(.horizontal)
                         
-                        // Error Message Display
-                        if let errorMessage = tripPlanner.errorMessage {
-                            Text(errorMessage)
-                                .foregroundColor(.red)
-                                .font(.caption)
-                                .padding(.horizontal)
+                        // Button Section - Clearly separated from the form
+                        VStack {
+                            // Generate Button
+                            Button {
+                                hideKeyboard() // Ensure keyboard dismisses
+                                if isFormValid {
+                                    tripPlanner.generateItinerary(
+                                        startDestination: startDestination,
+                                        endDestination: endDestination,
+                                        startDate: startDate,
+                                        endDate: endDate,
+                                        interests: Array(selectedInterests)
+                                    )
+                                    showItinerary = true
+                                }
+                            } label: {
+                                HStack {
+                                    if tripPlanner.isLoading {
+                                        ProgressView()
+                                            .tint(.white) // Make spinner white
+                                    } else {
+                                        Image(systemName: "sparkles")
+                                    }
+                                    Text("Generate My Yatra")
+                                        .fontWeight(.semibold)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12) // Slightly more vertical padding
+                            }
+                            .buttonStyle(.borderedProminent) // Use prominent style
+                            .tint(.indigo) // Consistent accent color
+                            .controlSize(.large) // Make button larger
+                            .disabled(!isFormValid || tripPlanner.isLoading) // Disable based on validation
+                            
+                            // Error Message Display
+                            if let errorMessage = tripPlanner.errorMessage {
+                                Text(errorMessage)
+                                    .foregroundColor(.red)
+                                    .font(.caption)
+                            }
                         }
+                        .padding(.horizontal)
                         
                         Spacer(minLength: 20) // Ensure space at the bottom
                     }
