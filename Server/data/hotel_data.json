@@ -13,7 +13,7 @@
       "roomTypes": [
         {
           "id": "r001",
-          "name": "Deluxe Mountain View",
+          "name": "Deluxe",
           "price": 8500,
           "capacity": 2,
           "description": "Spacious room with private balcony and mountain views",
@@ -63,7 +63,7 @@
       "roomTypes": [
         {
           "id": "r003",
-          "name": "River View Cottage",
+          "name": "Deluxe",
           "price": 7500,
           "capacity": 2,
           "description": "Cozy wooden cottage with river view and private deck",
@@ -71,7 +71,7 @@
         },
         {
           "id": "r004",
-          "name": "Family Suite",
+          "name": "Premium Suite",
           "price": 11000,
           "capacity": 6,
           "description": "Two-bedroom suite with living area and mountain views",
@@ -113,7 +113,7 @@
       "roomTypes": [
         {
           "id": "r005",
-          "name": "Zen Garden Room",
+          "name": "Deluxe",
           "price": 6500,
           "capacity": 2,
           "description": "Peaceful room with garden view and traditional décor",
@@ -121,7 +121,7 @@
         },
         {
           "id": "r006",
-          "name": "Himalayan Suite",
+          "name": "Premium Suite",
           "price": 9500,
           "capacity": 3,
           "description": "Spacious suite with valley views and meditation corner",
