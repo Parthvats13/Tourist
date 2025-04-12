@@ -880,3 +880,27 @@ extension DiscoverViewModel {
           loadDiscoverData()
      }
 }
+struct AnimatedCardContainer<Content: View>: View {
+    let delay: Double
+    let content: Content
+    @State private var isShowing = false
+    
+    init(delay: Double = 0, @ViewBuilder content: () -> Content) {
+        self.delay = delay
+        self.content = content()
+    }
+    
+    var body: some View {
+        content
+            .scaleEffect(isShowing ? 1 : 0.8)
+            .opacity(isShowing ? 1 : 0)
+            .offset(y: isShowing ? 0 : 20)
+            .animation(.spring(response: 0.5, dampingFraction: 0.7, blendDuration: 0.5).delay(delay), value: isShowing)
+            .onAppear {
+                isShowing = true
+            }
+            .onDisappear {
+                isShowing = false
+            }
+    }
+}

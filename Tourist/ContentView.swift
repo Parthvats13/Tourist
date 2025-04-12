@@ -1,71 +1,99 @@
 import SwiftUI
-import CoreLocation
-
-// MARK: - Content View with Tab Navigation
 
 struct ContentView: View {
-    // Use constants for tab tags for better readability and maintenance
     enum Tab {
         case plan, map, discover, passport
     }
-    @State private var selectedTab: Tab = .plan // Use enum for selection
-        @StateObject private var tripPlanner = TripPlannerViewModel()
-        @StateObject private var userProfile = UserProfileViewModel()
-        @StateObject private var discoverViewModel = DiscoverViewModel()
-        
-        // Remove this line as it's causing the conflict:
-        // @StateObject private var locationManager = LocationManager()
-        
-        // Instead, use @EnvironmentObject to receive the one created in the App
-        @EnvironmentObject private var locationManager: LocationManager
+
+    @State private var selectedTab: Tab = .plan
+    @State private var previousTab: Tab = .plan
+    @StateObject private var tripPlanner = TripPlannerViewModel()
+    @StateObject private var userProfile = UserProfileViewModel()
+    @StateObject private var discoverViewModel = DiscoverViewModel()
+    @StateObject private var locationManager = LocationManager()
+    
+    // Animation properties
+    @Namespace private var animation
+    @State private var isAnimating = false
+    
     var body: some View {
-        TabView(selection: $selectedTab) {
-            // Plan Tab
-            PlanView()
-                .tabItem {
-                    Label("Plan", systemImage: "map.fill") // Use filled icons for active state hint
+        ZStack {
+            // Background that changes based on selected tab
+            tabBackground
+                .animation(.interpolatingSpring(stiffness: 50, damping: 8), value: selectedTab)
+            
+            // Tab content with transitions
+            TabView(selection: $selectedTab) {
+                PlanView()
+                    .matchedGeometryEffect(id: Tab.plan, in: animation, isSource: selectedTab == Tab.plan)
+                    .tabItem {
+                        Label("Plan", systemImage: selectedTab == .plan ? "map.fill" : "map")
+                    }
+                    .tag(Tab.plan)
+                
+                MapView()
+                    .matchedGeometryEffect(id: Tab.map, in: animation, isSource: selectedTab == Tab.map)
+                    .tabItem {
+                        Label("Map", systemImage: selectedTab == .map ? "globe.americas.fill" : "globe.americas")
+                    }
+                    .tag(Tab.map)
+                
+                DiscoverView()
+                    .matchedGeometryEffect(id: Tab.discover, in: animation, isSource: selectedTab == Tab.discover)
+                    .tabItem {
+                        Label("Discover", systemImage: selectedTab == .discover ? "sparkles" : "sparkle")
+                    }
+                    .tag(Tab.discover)
+                
+                PassportView()
+                    .matchedGeometryEffect(id: Tab.passport, in: animation, isSource: selectedTab == Tab.passport)
+                    .tabItem {
+                        Label("Passport", systemImage: selectedTab == .passport ? "person.crop.rectangle.stack.fill" : "person.crop.rectangle.stack")
+                    }
+                    .tag(Tab.passport)
+            }
+            .onChange(of: selectedTab) { newTab in
+                previousTab = newTab
+                
+                // Add haptic feedback on tab change
+                let generator = UIImpactFeedbackGenerator(style: .soft)
+                generator.impactOccurred()
+            }
+            .accentColor(.indigo)
+            .environmentObject(tripPlanner)
+            .environmentObject(userProfile)
+            .environmentObject(discoverViewModel)
+            .environmentObject(locationManager)
+            .onAppear {
+                userProfile.loadUserProfile()
+                discoverViewModel.loadDiscoverData()
+                locationManager.requestPermission()
+                
+                // Subtle animation when app first appears
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                    isAnimating = true
                 }
-                .tag(Tab.plan) // Use enum tag
-
-            // Map Tab
-            MapView()
-                .tabItem {
-                    Label("Map", systemImage: "globe.americas.fill") // More specific globe
-                }
-                .tag(Tab.map)
-
-            // Discover Tab
-            DiscoverView()
-                .tabItem {
-                    Label("Discover", systemImage: "sparkles") // More engaging icon
-                }
-                .tag(Tab.discover)
-
-            // Passport Tab
-            PassportView()
-                .tabItem {
-                    Label("Passport", systemImage: "person.crop.rectangle.stack.fill") // More relevant icon
-                }
-                .tag(Tab.passport)
-        }
-        // Apply a consistent accent color across the app
-        .accentColor(.indigo) // Or choose another primary color
-        .environmentObject(tripPlanner)
-        .environmentObject(userProfile)
-        .environmentObject(discoverViewModel)
-        .environmentObject(locationManager)
-        .onAppear {
-            // Load initial data when app starts
-            userProfile.loadUserProfile()
-            discoverViewModel.loadDiscoverData()
-            // Request location permissions early if needed
-            locationManager.requestPermission()
+            }
         }
     }
+    
+    // Dynamic background based on the selected tab
+    private var tabBackground: some View {
+        Group {
+            switch selectedTab {
+            case .plan:
+                Color.indigo.opacity(0.05)
+            case .map:
+                Color.green.opacity(0.05)
+            case .discover:
+                Color.orange.opacity(0.05)
+            case .passport:
+                Color.purple.opacity(0.05)
+            }
+        }
+        .ignoresSafeArea()
+    }
 }
-
-// MARK: - Preview Provider
-
 #Preview {
     ContentView()
         // Add mock data providers for previews if needed
