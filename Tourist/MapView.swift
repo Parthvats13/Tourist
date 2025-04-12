@@ -1,11 +1,38 @@
 import SwiftUI
 import CoreLocation // Keep import
+import MapKit // Add MapKit import
 
 // MARK: - Map Tab View
 
 struct MapView: View {
     @EnvironmentObject private var locationManager: LocationManager
     @EnvironmentObject private var tripPlanner: TripPlannerViewModel // Access itinerary if needed for route display
+
+    // Enum for user-selectable map styles
+    enum SelectableMapStyle: String, CaseIterable, Identifiable {
+        case standard = "Standard"
+        case hybrid = "Hybrid"
+        case imagery = "Satellite"
+
+        var id: String { self.rawValue }
+
+        var systemImage: String {
+            switch self {
+            case .standard: "map"
+            case .hybrid: "globe.asia.australia"
+            case .imagery: "airplane"
+            }
+        }
+
+        // Mapping to the actual MapKit MapStyle
+        var mapKitStyle: MapStyle {
+            switch self {
+            case .standard: .standard
+            case .hybrid: .hybrid
+            case .imagery: .imagery
+            }
+        }
+    }
 
     // Use an enum for Map Layers for clarity
     enum MapLayer: String, CaseIterable, Identifiable {
@@ -35,21 +62,43 @@ struct MapView: View {
         }
     }
 
-    // State for MapKit integration (replace placeholder)
-    // @State private var region = MKCoordinateRegion(...)
-    @State private var mapType: MapType = .standard // Keep your enum
+    // State for MapKit integration
+    // @State private var mapStyle: MapStyle = .standard // Use MapKit's MapStyle - REMOVE
+    @State private var selectedMapStyle: SelectableMapStyle = .standard // Use our Equatable enum
     @State private var activeLayers: Set<MapLayer> = [.weather] // Default active layers
     @State private var showingLogSheet = false
+
+    // Define initial position based on location
+    private var initialPosition: MapCameraPosition {
+        guard CLLocationCoordinate2DIsValid(locationManager.currentLocation) else {
+            // Default to a reasonable location if current location is invalid
+            return .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), latitudinalMeters: 10000, longitudinalMeters: 10000))
+        }
+        return .region(MKCoordinateRegion(center: locationManager.currentLocation, latitudinalMeters: 5000, longitudinalMeters: 5000))
+    }
 
     var body: some View {
         // Use NavigationStack if map needs a title or toolbar items specific to it
         NavigationStack {
             ZStack {
-                // MARK: - Map Placeholder (Replace with MapKit View)
-                MapPlaceholderView(
-                    currentLocation: locationManager.currentLocation,
-                    mapType: mapType
-                )
+                // MARK: - MapKit View
+                Map(initialPosition: initialPosition) {
+                    // Add map content here (Markers, Polylines, etc.)
+                    // Example: Show user location if available
+                    if CLLocationCoordinate2DIsValid(locationManager.currentLocation) {
+                         UserAnnotation() // Shows the default blue dot for user location
+                    }
+
+                    // TODO: Display route from tripPlanner if available
+                    // TODO: Display logged experiences as markers
+                    // TODO: Display MapLayer overlays (Weather, Roads, etc.) - This requires more complex integration (e.g., TileOverlays or AnnotationViews)
+                }
+                .mapStyle(selectedMapStyle.mapKitStyle) // Apply the mapped style
+                // .mapControls { // Add standard map controls if desired
+                //     MapUserLocationButton()
+                //     MapCompass()
+                //     MapScaleView()
+                // }
                 .ignoresSafeArea(edges: .top) // Allow map to go under navigation bar slightly
 
                 // MARK: - Map Controls Overlay
@@ -76,14 +125,14 @@ struct MapView: View {
                         HStack(spacing: 10) {
                             // Map Type Toggle Menu
                             Menu {
-                                Button { mapType = .standard } label: {
-                                    Label("Standard", systemImage: "map")
-                                }
-                                Button { mapType = .satellite } label: {
-                                    Label("Satellite", systemImage: "globe.asia.australia") // Different globe icon
+                                ForEach(SelectableMapStyle.allCases) { styleChoice in
+                                    Button { selectedMapStyle = styleChoice } label: {
+                                        Label(styleChoice.rawValue, systemImage: styleChoice.systemImage)
+                                    }
                                 }
                             } label: {
-                                Image(systemName: mapType == .standard ? "map" : "globe.asia.australia")
+                                // Call helper function to get icon name
+                                Image(systemName: selectedMapStyle.systemImage)
                                     .imageScale(.large)
                                     .frame(width: 44, height: 44) // Consistent size
                                     .background(.thickMaterial, in: Circle()) // Material background
@@ -138,6 +187,7 @@ struct MapView: View {
 
 // MARK: - Map Placeholder (Replace with MapKit)
 
+/* // Remove the entire MapPlaceholderView struct
 struct MapPlaceholderView: View {
     let currentLocation: CLLocationCoordinate2D
     let mapType: MapType // Use the enum
@@ -184,6 +234,7 @@ struct MapPlaceholderView: View {
         }
     }
 }
+*/
 
 
 // MARK: - Log Experience Sheet View

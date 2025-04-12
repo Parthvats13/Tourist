@@ -1,9 +1,19 @@
 import SwiftUI
 
+// MARK: - Global Profile Details
+struct ProfileDetails {
+    static var username: String = UserProfileViewModel().name  // Default value will be set when profile loads
+    static var contact: String = ""
+    static var gender: String = ""
+    static var nationality: String = ""
+    static var domicile: String = ""
+}
+
 // MARK: - Passport Tab View
 
 struct PassportView: View {
     @EnvironmentObject private var userProfile: UserProfileViewModel
+    @State private var showingProfileSheet = false
 
     var body: some View {
         NavigationStack {
@@ -15,9 +25,10 @@ struct PassportView: View {
                     errorView(message: errorMessage)
                 } else {
                     // Profile Content
-                    VStack(spacing: 30) {
+                    VStack(spacing: 20) {
                         // Profile Header
                         profileHeader
+                            .listRowInsets(EdgeInsets())
 
                         // Himachal Passport Section
                         passportSection
@@ -31,38 +42,63 @@ struct PassportView: View {
                         // Action Buttons Section
                         actionButtons
                     }
-                    .padding(.vertical) // Add overall vertical padding
+                    .padding(.vertical)
                 }
             }
             .navigationTitle("My HimYatra")
-            .navigationBarTitleDisplayMode(.large) // Use large title
-            .refreshable { // Add pull-to-refresh
-                 await userProfile.asyncLoadUserProfile() // Assume async version exists
+            .navigationBarTitleDisplayMode(.large)
+            .refreshable {
+                await userProfile.asyncLoadUserProfile()
             }
-            // Optional: Add background
-            // .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
+            .background(Color(UIColor.secondarySystemBackground))
         }
+        .background(Color(UIColor.secondarySystemBackground))
+        .ignoresSafeArea(.all, edges: .bottom)
     }
 
     // MARK: - Subviews for Sections
     private var profileHeader: some View {
-        VStack(spacing: 10) {
-            Image(userProfile.profileImage)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 120, height: 120)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.gray.opacity(0.2), lineWidth: 1)) // Subtle border
-                .shadow(radius: 6)
+        VStack(spacing: 20) {
+            // Main Profile Card
+            Button(action: { showingProfileSheet = true }) {
+                HStack(spacing: 15) {
+                    Image(userProfile.profileImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
 
-            Text(userProfile.name)
-                .font(.title).bold()
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(userProfile.name)
+                            .font(.title2)
+                            .bold()
+                            .foregroundColor(.primary)
 
-            Text("\(userProfile.totalVisits) Places Visited") // Simplified text
-                .font(.headline)
-                .foregroundColor(.secondary)
+                        Text("\(userProfile.totalVisits) Places Visited")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
+                        .font(.system(size: 14, weight: .semibold))
+                }
+                .padding()
+                .background(Color(UIColor.systemBackground))  // White background for the card
+                .cornerRadius(12)
+                // Set username when profile loads
+                .onAppear {
+                    ProfileDetails.username = userProfile.name
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
         }
-        .padding(.top) // Padding above the header
+        .padding(.horizontal)
+        .sheet(isPresented: $showingProfileSheet) {
+            ProfileDetailsSheet()
+        }
     }
 
     private var passportSection: some View {
@@ -244,7 +280,7 @@ struct HimachalPassportView: View {
                             PassportStampView(stamp: stamp)
                         }
                     }
-                    .padding() // Padding inside the grid
+                    .padding(10) // Padding inside the grid
                 }
             }
         }
@@ -431,4 +467,52 @@ extension UserProfileViewModel {
          try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
          loadUserProfile()
      }
+}
+
+// MARK: - Profile Details Sheet
+struct ProfileDetailsSheet: View {
+    @Environment(\.dismiss) var dismiss
+    @State private var tempUsername: String
+    @State private var tempContact: String
+    @State private var tempGender: String
+    @State private var tempNationality: String
+    @State private var tempDomicile: String
+
+    init() {
+        _tempUsername = State(initialValue: ProfileDetails.username)
+        _tempContact = State(initialValue: ProfileDetails.contact)
+        _tempGender = State(initialValue: ProfileDetails.gender)
+        _tempNationality = State(initialValue: ProfileDetails.nationality)
+        _tempDomicile = State(initialValue: ProfileDetails.domicile)
+    }
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Personal Information")) {
+                    TextField("Username", text: $tempUsername)
+                    TextField("Contact", text: $tempContact)
+                    TextField("Gender", text: $tempGender)
+                    TextField("Nationality", text: $tempNationality)
+                    TextField("Domicile", text: $tempDomicile)
+                }
+            }
+            .navigationTitle("Edit Profile")
+            .navigationBarItems(
+                leading: Button("Cancel") { dismiss() },
+                trailing: Button("Save") {
+                    saveChanges()
+                    dismiss()
+                }
+            )
+        }
+    }
+
+    private func saveChanges() {
+        ProfileDetails.username = tempUsername
+        ProfileDetails.contact = tempContact
+        ProfileDetails.gender = tempGender
+        ProfileDetails.nationality = tempNationality
+        ProfileDetails.domicile = tempDomicile
+    }
 }
