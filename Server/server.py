@@ -211,6 +211,27 @@ def get_community_stories():
             'data': None,
             'message': error_msg
         }), 500
+    
+@app.route('/api/hotels', methods=['GET'])
+def get_hotels():
+    logger.info("Hotels endpoint called")
+    try:
+        data = load_data('hotel_data.json')
+        response = {
+            'success': True,
+            'data': data,
+            'message': None
+        }
+        logger.info(f"Successfully retrieved hotels")
+        return jsonify(response)
+    except Exception as e:
+        error_msg = str(e)
+        logger.error(f"Error retrieving hotels: {error_msg}")
+        return jsonify({
+            'success': False,
+            'data': None,
+            'message': error_msg
+        }), 500
 
 # Future endpoint for AI-powered recommendations
 @app.route('/api/ai_recommendations', methods=['POST'])
@@ -244,5 +265,5 @@ if __name__ == '__main__':
         logger.warning(f"Missing data files: {', '.join(missing_files)}")
         logger.warning("Please create these files in the 'data' directory before running the server")
     
-    logger.info("Starting Flask server on http://127.0.0.1:5000")
-    run_simple('localhost', 5000, app, use_reloader=True, use_debugger=True)
+    logger.info("Starting Flask server on http://0.0.0.0:6969")
+    run_simple('0.0.0.0', 6969, app, use_reloader=True, use_debugger=True)

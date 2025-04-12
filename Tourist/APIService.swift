@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 class APIService {
-    private let baseURL = "http://127.0.0.1:5000/api"
+    private let baseURL = "http://192.168.30.140:6969/api"
     private let jsonDecoder: JSONDecoder
     private let jsonEncoder: JSONEncoder
     

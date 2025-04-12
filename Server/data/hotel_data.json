@@ -1,0 +1,152 @@
+[
+    {
+      "id": "h001",
+      "name": "Shimla Hilltop Resort",
+      "location": "Shimla",
+      "description": "Luxury resort with panoramic views of the Himalayas",
+      "address": "The Ridge, Shimla, Himachal Pradesh, 171001",
+      "price": 8500,
+      "rating": 4.7,
+      "images": ["shimla_hotel_1", "shimla_hotel_2", "shimla_hotel_3"],
+      "mainImage": "shimla_hotel_main",
+      "amenities": ["WiFi", "Restaurant", "Room Service", "Spa", "Parking", "Mountain View"],
+      "roomTypes": [
+        {
+          "id": "r001",
+          "name": "Deluxe Mountain View",
+          "price": 8500,
+          "capacity": 2,
+          "description": "Spacious room with private balcony and mountain views",
+          "image": "shimla_deluxe_room"
+        },
+        {
+          "id": "r002",
+          "name": "Premium Suite",
+          "price": 12500,
+          "capacity": 4,
+          "description": "Luxury suite with separate living area and panoramic views",
+          "image": "shimla_premium_suite"
+        }
+      ],
+      "reviews": [
+        {
+          "author": "Rahul Sharma",
+          "rating": 5,
+          "comment": "Incredible views and excellent service. Would definitely recommend!",
+          "date": "2025-03-15"
+        },
+        {
+          "author": "Priya Malhotra",
+          "rating": 4,
+          "comment": "Beautiful property with great food. The room was a bit small though.",
+          "date": "2025-02-22"
+        }
+      ],
+      "contactPhone": "+91 177 2654 321",
+      "contactEmail": "reservations@shimlahilltop.com",
+      "coordinates": {
+        "latitude": 31.1048,
+        "longitude": 77.1734
+      }
+    },
+    {
+      "id": "h002",
+      "name": "Manali River Lodge",
+      "location": "Manali",
+      "description": "Riverside retreat with adventure activities and spa",
+      "address": "Log Huts Area, Near Manu Temple, Manali, Himachal Pradesh, 175131",
+      "price": 7500,
+      "rating": 4.5,
+      "images": ["manali_hotel_1", "manali_hotel_2", "manali_hotel_3"],
+      "mainImage": "manali_hotel_main",
+      "amenities": ["WiFi", "Restaurant", "Riverside Dining", "Adventure Sports Desk", "Spa", "Heated Rooms"],
+      "roomTypes": [
+        {
+          "id": "r003",
+          "name": "River View Cottage",
+          "price": 7500,
+          "capacity": 2,
+          "description": "Cozy wooden cottage with river view and private deck",
+          "image": "manali_river_cottage"
+        },
+        {
+          "id": "r004",
+          "name": "Family Suite",
+          "price": 11000,
+          "capacity": 6,
+          "description": "Two-bedroom suite with living area and mountain views",
+          "image": "manali_family_suite"
+        }
+      ],
+      "reviews": [
+        {
+          "author": "Aditya Singh",
+          "rating": 5,
+          "comment": "The sound of the river from our cottage was therapeutic. Great food and activities.",
+          "date": "2025-04-02"
+        },
+        {
+          "author": "Meera Patel",
+          "rating": 4,
+          "comment": "Excellent location and service, but Wi-Fi was a bit spotty.",
+          "date": "2025-01-30"
+        }
+      ],
+      "contactPhone": "+91 190 2631 555",
+      "contactEmail": "info@manaliriverlodge.com",
+      "coordinates": {
+        "latitude": 32.2396,
+        "longitude": 77.1887
+      }
+    },
+    {
+      "id": "h003",
+      "name": "Dharamshala Mountain Retreat",
+      "location": "Dharamshala",
+      "description": "Peaceful retreat with meditation spaces and Tibetan-inspired design",
+      "address": "Bhagsu Road, McLeodganj, Dharamshala, Himachal Pradesh, 176219",
+      "price": 6500,
+      "rating": 4.8,
+      "images": ["dharamshala_hotel_1", "dharamshala_hotel_2", "dharamshala_hotel_3"],
+      "mainImage": "dharamshala_hotel_main",
+      "amenities": ["WiFi", "Meditation Center", "Yoga Classes", "Organic Restaurant", "Library", "Valley View"],
+      "roomTypes": [
+        {
+          "id": "r005",
+          "name": "Zen Garden Room",
+          "price": 6500,
+          "capacity": 2,
+          "description": "Peaceful room with garden view and traditional décor",
+          "image": "dharamshala_garden_room"
+        },
+        {
+          "id": "r006",
+          "name": "Himalayan Suite",
+          "price": 9500,
+          "capacity": 3,
+          "description": "Spacious suite with valley views and meditation corner",
+          "image": "dharamshala_suite"
+        }
+      ],
+      "reviews": [
+        {
+          "author": "Sarah Johnson",
+          "rating": 5,
+          "comment": "A perfect spiritual retreat. The yoga classes and meditation sessions were fantastic.",
+          "date": "2025-03-22"
+        },
+        {
+          "author": "Vikram Mehta",
+          "rating": 5,
+          "comment": "Incredible ambiance and the most peaceful stay I've had in years.",
+          "date": "2025-02-10"
+        }
+      ],
+      "contactPhone": "+91 189 2221 777",
+      "contactEmail": "stay@dharamshalaretreat.com",
+      "coordinates": {
+        "latitude": 32.2190,
+        "longitude": 76.3234
+      }
+    }
+  ]
