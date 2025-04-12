@@ -80,7 +80,7 @@ enum JourneyStatus: String, Codable {
 // MARK: - Data Models
 
 struct ItineraryDay: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let date: Date
     let mainLocation: String
     let mainImage: String
@@ -109,21 +109,21 @@ struct ItineraryDay: Identifiable, Codable {
 }
 
 struct WeatherAlert: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let type: String
     let description: String
     let icon: String
 }
 
 struct RoadAlert: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let road: String
     let description: String
     let status: RoadStatus
 }
 
 struct Attraction: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let name: String
     let description: String
     let image: String
@@ -132,7 +132,7 @@ struct Attraction: Identifiable, Codable {
 }
 
 struct FoodRecommendation: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let name: String
     let description: String
     let image: String
@@ -141,7 +141,7 @@ struct FoodRecommendation: Identifiable, Codable {
 }
 
 struct Activity: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let name: String
     let description: String
     let icon: String
@@ -150,7 +150,7 @@ struct Activity: Identifiable, Codable {
 }
 
 struct HiddenGem: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let name: String
     let location: String
     let image: String
@@ -159,7 +159,7 @@ struct HiddenGem: Identifiable, Codable {
 }
 
 struct LocalGuide: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let name: String
     let profileImage: String
     let specialty: [String]
@@ -173,7 +173,7 @@ struct LocalGuide: Identifiable, Codable {
 }
 
 struct Review: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let userName: String
     let userImage: String
     let rating: Int
@@ -182,7 +182,7 @@ struct Review: Identifiable, Codable {
 }
 
 struct Festival: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let name: String
     let location: String
     let image: String
@@ -203,7 +203,7 @@ struct Festival: Identifiable, Codable {
 }
 
 struct CommunityStory: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let title: String
     let excerpt: String
     let image: String
@@ -213,14 +213,14 @@ struct CommunityStory: Identifiable, Codable {
 }
 
 struct PassportStamp: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let location: String
     let icon: String
     let date: Date
 }
 
 struct Journey: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let title: String
     let startDate: Date
     let endDate: Date
@@ -229,7 +229,7 @@ struct Journey: Identifiable, Codable {
 }
 
 struct Contribution: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let location: String
     let description: String
     let image: String

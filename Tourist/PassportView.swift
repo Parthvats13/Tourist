@@ -1,323 +1,434 @@
 import SwiftUI
 
-// MARK: - Passport Tab
+// MARK: - Passport Tab View
 
 struct PassportView: View {
     @EnvironmentObject private var userProfile: UserProfileViewModel
-    
+
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
+                // Loading and Error States
                 if userProfile.isLoading {
-                    VStack {
-                        ProgressView()
-                        Text("Loading your passport...")
-                            .foregroundColor(.secondary)
-                            .padding()
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding(.top, 50)
+                    loadingView
                 } else if let errorMessage = userProfile.errorMessage {
-                    VStack {
-                        Image(systemName: "exclamationmark.triangle")
-                            .font(.largeTitle)
-                            .foregroundColor(.orange)
-                            .padding()
-                        
-                        Text("Error loading profile")
-                            .font(.headline)
-                        
-                        Text(errorMessage)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding()
-                        
-                        Button("Try Again") {
-                            userProfile.loadUserProfile()
-                        }
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 40)
+                    errorView(message: errorMessage)
                 } else {
-                    VStack(spacing: 25) {
+                    // Profile Content
+                    VStack(spacing: 30) {
                         // Profile Header
-                        VStack {
-                            Image(userProfile.profileImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 120, height: 120)
-                                .clipShape(Circle())
-                                .overlay(
-                                    Circle()
-                                        .stroke(Color.white, lineWidth: 3)
-                                        .shadow(radius: 5)
-                                )
-                            
-                            Text(userProfile.name)
-                                .font(.title)
-                                .fontWeight(.bold)
-                            
-                            Text("\(userProfile.totalVisits) places visited in Himachal")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                        .padding()
-                        
-                        // Himachal Passport
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("Himachal Passport")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .padding(.horizontal)
-                            
-                            HimachalPassportView(stamps: userProfile.collectedStamps)
-                                .frame(height: 300)
-                                .padding(.horizontal)
-                        }
-                        
-                        // My Journeys
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("My Journeys")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .padding(.horizontal)
-                            
-                            if userProfile.journeys.isEmpty {
-                                Text("You haven't started any journeys yet.")
-                                    .foregroundColor(.secondary)
-                                    .padding()
-                            } else {
-                                ForEach(userProfile.journeys) { journey in
-                                    JourneyCard(journey: journey)
-                                        .padding(.horizontal)
-                                }
-                            }
-                        }
-                        
-                        // My Contributions
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("My Contributions")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .padding(.horizontal)
-                            
-                            if userProfile.contributions.isEmpty {
-                                Text("You haven't shared any experiences yet.")
-                                    .foregroundColor(.secondary)
-                                    .padding()
-                            } else {
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 15) {
-                                        ForEach(userProfile.contributions) { contribution in
-                                            ContributionCard(contribution: contribution)
-                                        }
-                                    }
-                                    .padding(.horizontal)
-                                }
-                            }
-                        }
-                        
-                        // Settings
-                        VStack {
-                            Button(action: {
-                                // Share journey action
-                            }) {
-                                HStack {
-                                    Image(systemName: "square.and.arrow.up")
-                                    Text("Share Journey")
-                                }
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                            }
-                            .padding(.horizontal)
-                            
-                            Button(action: {
-                                // Settings action
-                            }) {
-                                HStack {
-                                    Image(systemName: "gear")
-                                    Text("Settings")
-                                }
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.gray.opacity(0.2))
-                                .foregroundColor(.primary)
-                                .cornerRadius(10)
-                            }
-                            .padding(.horizontal)
-                        }
-                        .padding(.vertical)
+                        profileHeader
+
+                        // Himachal Passport Section
+                        passportSection
+
+                        // My Journeys Section
+                        journeysSection
+
+                        // My Contributions Section
+                        contributionsSection
+
+                        // Action Buttons Section
+                        actionButtons
                     }
+                    .padding(.vertical) // Add overall vertical padding
                 }
             }
             .navigationTitle("My HimYatra")
-            .navigationBarTitleDisplayMode(.large)
-            .refreshable {
-                userProfile.loadUserProfile()
+            .navigationBarTitleDisplayMode(.large) // Use large title
+            .refreshable { // Add pull-to-refresh
+                 await userProfile.asyncLoadUserProfile() // Assume async version exists
+            }
+            // Optional: Add background
+            // .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
+        }
+    }
+
+    // MARK: - Subviews for Sections
+    private var profileHeader: some View {
+        VStack(spacing: 10) {
+            Image(userProfile.profileImage)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 120, height: 120)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.gray.opacity(0.2), lineWidth: 1)) // Subtle border
+                .shadow(radius: 6)
+
+            Text(userProfile.name)
+                .font(.title).bold()
+
+            Text("\(userProfile.totalVisits) Places Visited") // Simplified text
+                .font(.headline)
+                .foregroundColor(.secondary)
+        }
+        .padding(.top) // Padding above the header
+    }
+
+    private var passportSection: some View {
+        VStack(alignment: .leading, spacing: 15) {
+            Text("Himachal Passport")
+                .font(.title2).bold()
+                .padding(.horizontal)
+
+            // Passport view with constraints
+            HimachalPassportView(stamps: userProfile.collectedStamps)
+                .frame(height: 250) // Adjust height as needed
+                 .padding(.horizontal)
+                 // Add a subtle border/background if needed
+                 .background(
+                     RoundedRectangle(cornerRadius: 20)
+                         .fill(Color.blue.opacity(0.05)) // Very light blue background
+                         .shadow(color: .black.opacity(0.05), radius: 5, y: 3)
+                 )
+                 .padding(.horizontal) // Padding around the background
+        }
+    }
+
+    private var journeysSection: some View {
+        VStack(alignment: .leading, spacing: 15) {
+            Text("My Journeys")
+                .font(.title2).bold()
+                .padding(.horizontal)
+
+            if userProfile.journeys.isEmpty {
+                Text("You haven't planned any journeys yet. Start planning from the 'Plan' tab!")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .cornerRadius(12)
+                    .padding(.horizontal)
+            } else {
+                 // Use vertical stack for journeys
+                VStack(spacing: 12) {
+                    ForEach(userProfile.journeys) { journey in
+                         NavigationLink {
+                             // Destination: Journey Detail View (e.g., showing its itinerary)
+                              // You might need to fetch the full itinerary for this journey ID
+                             Text("Detail for Journey: \(journey.title)")
+                         } label: {
+                             JourneyCard(journey: journey)
+                         }
+                         .buttonStyle(.plain)
+                    }
+                }
+                .padding(.horizontal)
             }
         }
     }
+
+     private var contributionsSection: some View {
+        VStack(alignment: .leading, spacing: 15) {
+            Text("My Contributions")
+                .font(.title2).bold()
+                .padding(.horizontal)
+
+             if userProfile.contributions.isEmpty {
+                Text("Share your experiences from the 'Map' tab to see them here.")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                     .multilineTextAlignment(.center)
+                     .padding()
+                     .frame(maxWidth: .infinity)
+                     .background(Color(UIColor.secondarySystemGroupedBackground))
+                     .cornerRadius(12)
+                     .padding(.horizontal)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 15) {
+                        ForEach(userProfile.contributions) { contribution in
+                            // Contributions might not need a detail view, or could show larger image/text
+                            ContributionCard(contribution: contribution)
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+            }
+        }
+    }
+
+    private var actionButtons: some View {
+        VStack(spacing: 12) {
+            // Share Profile/Journey Button
+            Button {
+                // Share Action
+            } label: {
+                Label("Share My Passport", systemImage: "square.and.arrow.up")
+                    .frame(maxWidth: .infinity) // Make label take full width
+            }
+            .buttonStyle(.borderedProminent) // Primary action style
+            .controlSize(.large)
+            .tint(.indigo)
+
+            // Settings Button
+            Button {
+                // Settings Action (e.g., navigate to Settings view)
+            } label: {
+                Label("Settings", systemImage: "gearshape.fill")
+                     .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered) // Secondary action style
+             .controlSize(.large)
+             .tint(.secondary) // Muted tint for settings
+        }
+        .padding(.horizontal)
+        .padding(.top, 10) // Add space above buttons
+    }
+
+
+    // MARK: - Loading and Error Views (Reused or Custom)
+    private var loadingView: some View {
+        VStack(spacing: 10) {
+            ProgressView()
+                .scaleEffect(1.5)
+            Text("Loading Your Passport...")
+                .font(.headline)
+                .foregroundColor(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 150)
+    }
+
+    private func errorView(message: String) -> some View {
+         VStack(spacing: 15) {
+             Image(systemName: "exclamationmark.triangle.fill")
+                 .font(.system(size: 40))
+                 .foregroundColor(.orange)
+             Text("Could not load profile.")
+                 .font(.title3).bold()
+             Text(message)
+                 .font(.subheadline)
+                 .foregroundColor(.secondary)
+                 .multilineTextAlignment(.center)
+                 .padding(.horizontal, 30)
+             Button("Try Again") {
+                  userProfile.loadUserProfile()
+             }
+             .buttonStyle(.bordered)
+             .tint(.orange)
+         }
+         .frame(maxWidth: .infinity)
+         .padding(.vertical, 120)
+    }
 }
+
+// MARK: - Passport View Components
 
 struct HimachalPassportView: View {
     let stamps: [PassportStamp]
-    
+    let columns = [GridItem(.adaptive(minimum: 85), spacing: 15)] // Adaptive columns for stamps
+
     var body: some View {
-        ZStack {
-            // Background passport image
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color(red: 0.95, green: 0.95, blue: 0.97))
-                .overlay(
-                    VStack {
-                        Text("HIMACHAL PASSPORT")
-                            .font(.headline)
-                            .foregroundColor(.blue)
-                            .padding(.top, 20)
-                        
-                        Spacer()
+         VStack(alignment: .leading) {
+            // Title inside the passport background (optional)
+            // Text("PASSPORT")
+            //     .font(.system(size: 14, weight: .medium, design: .monospaced))
+            //     .foregroundColor(.blue.opacity(0.6))
+            //     .padding(.top, 10)
+            //     .padding(.leading, 15)
+
+            if stamps.isEmpty {
+                 Spacer() // Push text to center
+                 Text("Visit places to collect stamps!")
+                     .font(.headline)
+                     .foregroundColor(.secondary.opacity(0.7))
+                     .frame(maxWidth: .infinity, alignment: .center)
+                 Spacer()
+            } else {
+                ScrollView { // Make stamps scrollable if they exceed height
+                    LazyVGrid(columns: columns, spacing: 20) { // Increased spacing
+                        ForEach(stamps) { stamp in
+                            PassportStampView(stamp: stamp)
+                        }
                     }
-                )
-            
-            // Stamps layout
-            VStack {
-                Spacer()
-                    .frame(height: 60)
-                
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 15) {
-                    ForEach(stamps) { stamp in
-                        PassportStampView(stamp: stamp)
-                    }
+                    .padding() // Padding inside the grid
                 }
-                .padding()
-                
-                Spacer()
             }
         }
+        // Removed background from here, applied in PassportView's passportSection
     }
 }
 
 struct PassportStampView: View {
     let stamp: PassportStamp
-    
+    @State private var isStamped = false // Animation state
+
     var body: some View {
-        VStack {
+        VStack(spacing: 5) {
             ZStack {
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 70, height: 70)
-                    .shadow(radius: 2)
-                
-                Text(stamp.icon)
-                    .font(.system(size: 30))
-                
-                Circle()
-                    .stroke(Color.red, lineWidth: 2)
-                    .frame(width: 70, height: 70)
-                    .rotationEffect(Angle(degrees: -30))
+                // Stamp Shape (more interesting than circle)
+                StampShape()
+                    .fill(Color.red.opacity(isStamped ? 0.15 : 0)) // Faint background on stamp
+                    .frame(width: 75, height: 75)
+
+                StampShape()
+                    .stroke(Color.red.opacity(isStamped ? 0.8 : 0), lineWidth: 2) // Red border
+                     .rotationEffect(.degrees(isStamped ? -15 : 15)) // Rotation animation
+                    .frame(width: 75, height: 75)
+
+
+                Text(stamp.icon) // Use the icon from data
+                    .font(.system(size: 35))
+                     .foregroundColor(.red.opacity(isStamped ? 0.9 : 0.2)) // Fade in icon
+
+                 // Date overlay (optional, can make it cluttered)
+                 // Text(stamp.date.formatted(.dateTime.year()))
+                 //    .font(.system(size: 8, weight: .bold))
+                 //    .foregroundColor(.red.opacity(0.6))
+                 //    .offset(y: 25)
             }
-            
+            .scaleEffect(isStamped ? 1.0 : 0.8) // Scale effect
+
             Text(stamp.location)
-                .font(.caption)
+                .font(.caption).bold() // Bold location name
+                .foregroundColor(.primary)
+                .lineLimit(2)
                 .multilineTextAlignment(.center)
-                .frame(width: 80)
+                .frame(height: 35, alignment: .top) // Fixed height for alignment
         }
+         .frame(width: 85) // Overall width constraint
+         .onAppear {
+              // Trigger animation shortly after appearing
+             withAnimation(.interpolatingSpring(mass: 0.5, stiffness: 100, damping: 10).delay(Double.random(in: 0.1...0.5))) {
+                 isStamped = true
+             }
+         }
     }
 }
 
+// Custom Shape for the Stamp Border
+struct StampShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let waves = 12 // Number of waves around the circle
+        let amplitude = rect.width * 0.04 // Wave amplitude
+
+        for i in 0...waves {
+            let angle = Angle.degrees(Double(i) * (360.0 / Double(waves)))
+            let radius = (rect.width / 2) + (i % 2 == 0 ? -amplitude : amplitude) // Alternate amplitude
+
+            let x = rect.midX + cos(angle.radians) * radius
+            let y = rect.midY + sin(angle.radians) * radius
+
+            if i == 0 {
+                path.move(to: CGPoint(x: x, y: y))
+            } else {
+                 // Add curve for smoother waves (optional)
+                // let prevAngle = Angle.degrees(Double(i-1) * (360.0 / Double(waves)))
+                // let controlRadius = (rect.width / 2)
+                // let cx = rect.midX + cos(prevAngle.radians + angle.radians/2) * controlRadius
+                // let cy = rect.midY + sin(prevAngle.radians + angle.radians/2) * controlRadius
+                // path.addQuadCurve(to: CGPoint(x: x, y: y), control: CGPoint(x: cx, y: cy))
+
+                 // Simpler line version
+                 path.addLine(to: CGPoint(x: x, y: y))
+            }
+        }
+        path.closeSubpath()
+        return path
+    }
+}
+
+
 struct JourneyCard: View {
     let journey: Journey
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text(journey.title)
-                    .font(.headline)
-                
+                VStack(alignment: .leading, spacing: 3) {
+                     Text(journey.title)
+                        .font(.headline).bold() // Bold title
+                     Text("\(journey.startDate.formatted(.dateTime.month().day())) - \(journey.endDate.formatted(.dateTime.month().day().year()))") // Concise date format
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
                 Spacer()
-                
-                Text(journey.status.rawValue)
-                    .font(.caption)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(
-                        Capsule()
-                            .fill(journey.status.color.opacity(0.2))
-                    )
+                 // Status Badge
+                Text(journey.status.rawValue.uppercased()) // Uppercase status
+                    .font(.caption).bold()
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(journey.status.color.opacity(0.15)) // Use status color
                     .foregroundColor(journey.status.color)
+                    .clipShape(Capsule())
             }
-            
-            Text("\(journey.startDate.formatted(date: .abbreviated, time: .omitted)) - \(journey.endDate.formatted(date: .abbreviated, time: .omitted))")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-            
-            HStack {
-                ForEach(journey.waypoints.prefix(3), id: \.self) { waypoint in
+
+            // Waypoints using icons/text (limit display)
+            HStack(spacing: 4) {
+                Image(systemName: "mappin.circle.fill") // Start icon
+                 ForEach(journey.waypoints.prefix(3), id: \.self) { waypoint in
                     Text(waypoint)
-                        .font(.caption)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(5)
+                         .font(.caption)
+                         .lineLimit(1)
+                    if waypoint != journey.waypoints.prefix(3).last {
+                         Image(systemName: "arrow.right") // Arrow between waypoints
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
-                
                 if journey.waypoints.count > 3 {
-                    Text("+\(journey.waypoints.count - 3)")
-                        .font(.caption)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(5)
+                    Text("...") // Indicate more waypoints
+                         .font(.caption)
                 }
+                Image(systemName: "flag.circle.fill") // End icon
             }
+            .foregroundColor(.secondary) // Color for the waypoint line
         }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color.white)
-                .shadow(radius: 3)
-        )
+        .padding() // Padding inside the card
+        .background(Color(UIColor.secondarySystemGroupedBackground)) // Card background
+        .cornerRadius(15)
+         .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2) // Softer shadow
     }
 }
 
 struct ContributionCard: View {
     let contribution: Contribution
-    
+
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 8) {
             Image(contribution.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 200, height: 150)
-                .cornerRadius(15)
-            
-            VStack(alignment: .leading, spacing: 5) {
+                .frame(width: 200, height: 150) // Match Discover card size
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+
+             VStack(alignment: .leading, spacing: 4) { // Reduce spacing
                 Text(contribution.location)
                     .font(.headline)
-                
-                Text(contribution.description)
+                    .lineLimit(1)
+
+                 // Show only date, maybe likes/comments if available
+                Text("Added: \(contribution.date.formatted(date: .abbreviated, time: .omitted))")
                     .font(.caption)
                     .foregroundColor(.secondary)
-                    .lineLimit(2)
-                
-                Text(contribution.date.formatted(date: .abbreviated, time: .omitted))
-                    .font(.caption)
-                    .foregroundColor(.blue)
+
+                 // Description is optional here or shown on tap
+                 // Text(contribution.description)
+                 //    .font(.caption)
+                 //    .foregroundColor(.secondary)
+                 //    .lineLimit(2)
             }
-            .padding(.horizontal, 5)
+            .padding(.horizontal, 5) // Padding for text
         }
-        .frame(width: 200)
-        .background(
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color.white)
-                .shadow(radius: 3)
-        )
+         .frame(width: 200) // Card width
+         .padding(10)
+         .background(Color(UIColor.secondarySystemGroupedBackground))
+         .cornerRadius(18)
+         .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
     }
+}
+
+// MARK: - UserProfileViewModel Extension (for refreshable)
+
+extension UserProfileViewModel {
+     @MainActor
+     func asyncLoadUserProfile() async {
+         // Simulate network delay
+         try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+         loadUserProfile()
+     }
 }

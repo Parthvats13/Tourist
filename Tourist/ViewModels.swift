@@ -164,19 +164,3 @@ class DiscoverViewModel: ObservableObject {
         .store(in: &cancellables)
     }
 }
-
-class LocationManager: ObservableObject {
-    @Published var currentLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 31.1048, longitude: 77.1734) // Default to Shimla
-    
-    // In a real app, this would use CLLocationManager to get actual user location
-    private let locationManager = CLLocationManager()
-    
-    init() {
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        
-        // Configure the location manager delegate to update currentLocation
-        // Not implemented here for brevity
-    }
-}
