@@ -3,6 +3,7 @@ import { Container, Typography, Box, CircularProgress, Tabs, Tab } from '@mui/ma
 import BookingCard from './components/BookingCard';
 import PricingManager from './components/PricingManager';
 import OccupancyDashboard from './components/OccupancyDashboard';
+import AppView from './components/AppView';
 import { motion } from 'framer-motion';
 
 const MotionBox = motion(Box);
@@ -20,7 +21,7 @@ function App() {
         const response = await fetch('/data/hotels.json');
         if (response.ok) {
           const data = await response.json();
-          setBookings(data.map(booking => ({
+          setBookings(data.bookings.map(booking => ({
             ...booking,
             status: booking.status?.toLowerCase() || 'pending'
           })));
@@ -153,6 +154,7 @@ function App() {
             <Tab label="Bookings" />
             <Tab label="Pricing Manager" />
             <Tab label="Occupancy Dashboard" />
+            <Tab label="App View" />
           </Tabs>
         </Box>
 
@@ -278,8 +280,10 @@ function App() {
           </>
         ) : currentTab === 1 ? (
           <PricingManager />
-        ) : (
+        ) : currentTab === 2 ? (
           <OccupancyDashboard />
+        ) : (
+          <AppView />
         )}
       </Container>
     </Box>

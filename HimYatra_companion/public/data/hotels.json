@@ -1,38 +1,73 @@
-[
-  {
-    "id": 1,
-    "username": "John Smith",
-    "contact": "+91 98765 43210",
-    "price": 12500,
-    "checkIn": "May 15, 2025",
-    "checkOut": "May 20, 2025",
-    "gender": "Male",
-    "nationality": "American",
-    "domicile": "New York",
-    "status": "pending"
+{
+  "hotelProfile": {
+    "name": "Himalayan Heights Resort",
+    "description": "Nestled in the heart of Himachal Pradesh, Himalayan Heights Resort offers a perfect blend of luxury and nature. Our resort provides breathtaking views of the snow-capped mountains and lush valleys, making it an ideal destination for those seeking tranquility and adventure. Each room is designed with comfort in mind, featuring modern amenities while maintaining the rustic charm of the Himalayas. Our dedicated staff ensures a memorable stay with personalized service and local insights to enhance your mountain experience.",
+    "features": [
+      "AC Rooms",
+      "Swimming Pool",
+      "Spa & Wellness Center",
+      "Restaurant",
+      "Conference Hall",
+      "Adventure Sports",
+      "Wi-Fi",
+      "Parking",
+      "Room Service",
+      "Mountain View"
+    ],
+    "location": "Manali, Himachal Pradesh, India",
+    "rating": 4.5,
+    "reviews": 128,
+    "price": 8500,
+    "images": [
+      "https://images.unsplash.com/photo-1626621341514-bebdfd3a2c4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "https://images.unsplash.com/photo-1576487248805-cf45e9336aca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "https://images.unsplash.com/photo-1585116938581-9d993839191d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    ],
+    "host": {
+      "name": "Rajesh Kumar",
+      "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+      "joined": "2018",
+      "responseRate": "98%",
+      "responseTime": "within an hour"
+    }
   },
-  {
-    "id": 2,
-    "username": "Priya Sharma",
-    "contact": "+91 87654 32109",
-    "price": 9800,
-    "checkIn": "May 18, 2025",
-    "checkOut": "May 22, 2025",
-    "gender": "Female",
-    "nationality": "Indian",
-    "domicile": "Delhi",
-    "status": "pending"
-  },
-  {
-    "id": 3,
-    "username": "David Chen",
-    "contact": "+91 76543 21098",
-    "price": 15000,
-    "checkIn": "Jun 1, 2025",
-    "checkOut": "Jun 7, 2025",
-    "gender": "Male",
-    "nationality": "Canadian",
-    "domicile": "Toronto",
-    "status": "pending"
-  }
-] 
+  "bookings": [
+    {
+      "id": 1,
+      "username": "John Smith",
+      "contact": "+91 98765 43210",
+      "price": 12500,
+      "checkIn": "May 15, 2025",
+      "checkOut": "May 20, 2025",
+      "gender": "Male",
+      "nationality": "American",
+      "domicile": "New York",
+      "status": "pending"
+    },
+    {
+      "id": 2,
+      "username": "Priya Sharma",
+      "contact": "+91 87654 32109",
+      "price": 9800,
+      "checkIn": "May 18, 2025",
+      "checkOut": "May 22, 2025",
+      "gender": "Female",
+      "nationality": "Indian",
+      "domicile": "Delhi",
+      "status": "pending"
+    },
+    {
+      "id": 3,
+      "username": "David Chen",
+      "contact": "+91 76543 21098",
+      "price": 15000,
+      "checkIn": "Jun 1, 2025",
+      "checkOut": "Jun 7, 2025",
+      "gender": "Male",
+      "nationality": "Canadian",
+      "domicile": "Toronto",
+      "status": "pending"
+    }
+  ]
+} 
