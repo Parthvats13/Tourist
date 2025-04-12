@@ -22,7 +22,7 @@ const darkTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+    fontFamily: 'Lato, system-ui, -apple-system, sans-serif',
     h1: {
       fontWeight: 700,
     },

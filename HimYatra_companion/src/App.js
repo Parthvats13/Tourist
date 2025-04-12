@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, CircularProgress, useTheme } from '@mui/material';
+import { Container, Typography, Box, CircularProgress, Tabs, Tab } from '@mui/material';
 import BookingCard from './components/BookingCard';
+import PricingManager from './components/PricingManager';
+import OccupancyDashboard from './components/OccupancyDashboard';
+import { motion } from 'framer-motion';
+
+const MotionBox = motion(Box);
+const MotionTypography = motion(Typography);
 
 function App() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const theme = useTheme();
+  const [currentTab, setCurrentTab] = useState(0);
 
   useEffect(() => {
     const checkForFile = async () => {
@@ -14,7 +20,10 @@ function App() {
         const response = await fetch('/data/hotels.json');
         if (response.ok) {
           const data = await response.json();
-          setBookings(data);
+          setBookings(data.map(booking => ({
+            ...booking,
+            status: booking.status?.toLowerCase() || 'pending'
+          })));
           setError(null);
         } else {
           setError('No users contacted');
@@ -42,135 +51,235 @@ function App() {
     );
   };
 
+  const handleTabChange = (event, newValue) => {
+    setCurrentTab(newValue);
+  };
+
   return (
     <Box 
       sx={{ 
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #13151a 0%, #1f2937 100%)',
+        background: 'linear-gradient(to bottom, #000000, #111111)',
         color: 'white',
-        pb: 8
+        pb: 8,
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '100%',
+          background: 'radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.07), transparent 70%)',
+          pointerEvents: 'none',
+          backdropFilter: 'blur(100px)',
+        }
       }}
     >
       <Container maxWidth="xl">
-        <Box
+        <MotionBox
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           sx={{
-            pt: 6,
-            pb: 8,
+            pt: 12,
+            pb: 6,
             textAlign: 'center',
             position: 'relative',
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: 0,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '100px',
-              height: '4px',
-              background: 'linear-gradient(90deg, #60a5fa 0%, #3b82f6 100%)',
-              borderRadius: '2px'
-            }
           }}
         >
-          <Typography
+          <MotionTypography
             variant="h2"
             component="h1"
             sx={{
+              fontFamily: 'Lato',
               fontWeight: 700,
-              background: 'linear-gradient(90deg, #fff 0%, #94a3b8 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              mb: 2
+              fontSize: { xs: '2.5rem', md: '3.75rem' },
+              letterSpacing: '-0.02em',
+              color: '#ffffff',
+              mb: 3,
+              position: 'relative',
+              display: 'inline-block',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -16,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '40px',
+                height: '1px',
+                background: 'rgba(255, 255, 255, 0.3)',
+              }
             }}
           >
             HimYatra Companion
-          </Typography>
-          <Typography
+          </MotionTypography>
+          <MotionTypography
             variant="h6"
             sx={{
-              color: '#94a3b8',
-              fontWeight: 400
+              fontFamily: 'Lato',
+              color: 'rgba(255, 255, 255, 0.6)',
+              fontWeight: 400,
+              maxWidth: '600px',
+              margin: '0 auto',
+              lineHeight: 1.6,
+              fontSize: '1.1rem',
+              mt: 4,
+              fontStyle: 'italic'
             }}
           >
-            Manage your mountain getaway bookings
-          </Typography>
+            Manage your mountain getaway bookings with elegance
+          </MotionTypography>
+        </MotionBox>
+
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
+          <Tabs 
+            value={currentTab} 
+            onChange={handleTabChange}
+            centered
+            sx={{
+              '& .MuiTab-root': {
+                color: 'rgba(255, 255, 255, 0.7)',
+                '&.Mui-selected': {
+                  color: 'white',
+                },
+              },
+              '& .MuiTabs-indicator': {
+                backgroundColor: 'white',
+              },
+            }}
+          >
+            <Tab label="Bookings" />
+            <Tab label="Pricing Manager" />
+            <Tab label="Occupancy Dashboard" />
+          </Tabs>
         </Box>
 
-        <Typography
-          variant="h4"
-          component="h2"
-          sx={{
-            mb: 4,
-            color: '#e2e8f0',
-            fontWeight: 600,
-            position: 'relative',
-            display: 'inline-block',
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: -1,
-              left: 0,
-              width: '40%',
-              height: '3px',
-              background: '#3b82f6',
-              borderRadius: '2px'
-            }
-          }}
-        >
-          Available Bookings
-        </Typography>
-
-        {loading ? (
-          <Box 
-            display="flex" 
-            justifyContent="center" 
-            alignItems="center" 
-            minHeight="200px"
-          >
-            <CircularProgress sx={{ color: '#3b82f6' }} />
-          </Box>
-        ) : error ? (
-          <Box
-            sx={{
-              textAlign: 'center',
-              py: 8,
-              px: 3,
-              borderRadius: 4,
-              backgroundColor: 'rgba(239, 68, 68, 0.1)',
-              border: '1px solid rgba(239, 68, 68, 0.2)'
-            }}
-          >
-            <Typography 
-              variant="h5" 
-              sx={{ 
-                color: '#ef4444',
-                fontWeight: 500
-              }}
+        {currentTab === 0 ? (
+          <>
+            <MotionBox
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              {error}
-            </Typography>
-          </Box>
+              <Typography
+                variant="h4"
+                component="h2"
+                sx={{
+                  mb: 8,
+                  color: '#ffffff',
+                  fontFamily: 'Lato',
+                  fontWeight: 500,
+                  fontSize: '2.25rem',
+                  letterSpacing: '-0.02em',
+                  position: 'relative',
+                  display: 'inline-block',
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    bottom: -8,
+                    left: 0,
+                    width: '20px',
+                    height: '1px',
+                    background: 'rgba(255, 255, 255, 0.3)',
+                  }
+                }}
+              >
+                Available Bookings
+              </Typography>
+            </MotionBox>
+
+            {loading ? (
+              <MotionBox 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                display="flex" 
+                justifyContent="center" 
+                alignItems="center" 
+                minHeight="300px"
+              >
+                <CircularProgress 
+                  size={40}
+                  sx={{ 
+                    color: 'rgba(255, 255, 255, 0.3)',
+                    '& .MuiCircularProgress-circle': {
+                      strokeLinecap: 'round',
+                    }
+                  }} 
+                />
+              </MotionBox>
+            ) : error ? (
+              <MotionBox
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+                sx={{
+                  textAlign: 'center',
+                  py: 10,
+                  px: 4,
+                  borderRadius: '20px',
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  maxWidth: '600px',
+                  margin: '0 auto'
+                }}
+              >
+                <Typography 
+                  variant="h5" 
+                  sx={{ 
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontFamily: 'Lato',
+                    fontWeight: 400,
+                    fontSize: '1.25rem'
+                  }}
+                >
+                  {error}
+                </Typography>
+              </MotionBox>
+            ) : (
+              <MotionBox
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: {
+                    xs: '1fr',
+                    sm: 'repeat(2, 1fr)',
+                    lg: 'repeat(3, 1fr)',
+                    xl: 'repeat(4, 1fr)'
+                  },
+                  gap: 4,
+                  mb: 4
+                }}
+              >
+                {bookings.map((booking, index) => (
+                  <MotionBox
+                    key={booking.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      duration: 0.6, 
+                      delay: index * 0.1,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                  >
+                    <BookingCard
+                      booking={booking}
+                      onConfirm={() => handleConfirmBooking(booking.id)}
+                    />
+                  </MotionBox>
+                ))}
+              </MotionBox>
+            )}
+          </>
+        ) : currentTab === 1 ? (
+          <PricingManager />
         ) : (
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: {
-                xs: '1fr',
-                sm: 'repeat(2, 1fr)',
-                lg: 'repeat(3, 1fr)',
-                xl: 'repeat(4, 1fr)'
-              },
-              gap: 4,
-              mb: 4
-            }}
-          >
-            {bookings.map((booking) => (
-              <BookingCard
-                key={booking.id}
-                booking={booking}
-                onConfirm={() => handleConfirmBooking(booking.id)}
-              />
-            ))}
-          </Box>
+          <OccupancyDashboard />
         )}
       </Container>
     </Box>

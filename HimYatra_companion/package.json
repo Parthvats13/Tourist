@@ -5,10 +5,13 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
+    "framer-motion": "^12.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "recharts": "^2.15.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,4 +37,4 @@
       "last 1 safari version"
     ]
   }
-} 
+}
