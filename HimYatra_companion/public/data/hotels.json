@@ -43,7 +43,9 @@
       "gender": "Male",
       "nationality": "American",
       "domicile": "New York",
-      "status": "pending"
+      "roomType": "Premium Suite",
+      "Guests": 3,
+      "roomAlloted": "yes"
     },
     {
       "id": 2,
@@ -55,7 +57,9 @@
       "gender": "Female",
       "nationality": "Indian",
       "domicile": "Delhi",
-      "status": "pending"
+      "roomType": "Deluxe",
+      "Guests": 2,
+      "roomAlloted": "no"
     },
     {
       "id": 3,
@@ -67,7 +71,23 @@
       "gender": "Male",
       "nationality": "Canadian",
       "domicile": "Toronto",
-      "status": "pending"
+      "roomType": "Suite",
+      "Guests": 4,
+      "roomAlloted": "yes"
+    },
+    {
+      "id": 4,
+      "username": "Sophia Garcia",
+      "contact": "+91 65432 10987",
+      "price": 10800,
+      "checkIn": "Jun 10, 2025",
+      "checkOut": "Jun 15, 2025",
+      "gender": "Female",
+      "nationality": "Spanish",
+      "domicile": "Barcelona",
+      "roomType": "Single",
+      "Guests": 1,
+      "roomAlloted": "no"
     }
   ]
-} 
+}

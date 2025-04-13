@@ -18,9 +18,11 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  Alert,
 } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import AddIcon from '@mui/icons-material/Add';
+import axios from 'axios';
 
 const MotionBox = motion(Box);
 const MotionCard = motion(Card);
@@ -108,10 +110,21 @@ function PricingManager() {
   const [openDialog, setOpenDialog] = useState(false);
   const [newRoomName, setNewRoomName] = useState('');
   const [newRoomPrice, setNewRoomPrice] = useState('');
+  const [message, setMessage] = useState({ type: '', text: '' });
 
   const handleBasePriceChange = (event) => {
     const value = Math.max(0, Number(event.target.value));
     setBasePrice(value);
+    
+    // Update the price in roomTypes for the selected room type
+    setRoomTypes(prevRoomTypes => 
+      prevRoomTypes.map(room => 
+        room.name === selectedRoomType 
+          ? { ...room, basePrice: value }
+          : room
+      )
+    );
+    
     setPriceAnimation(true);
     setTimeout(() => setPriceAnimation(false), 400);
   };
@@ -160,7 +173,7 @@ function PricingManager() {
     }
   };
 
-  const calculateFinalPrice = () => {
+  const calculateFinalPrice = (basePrice) => {
     let finalPrice = basePrice;
     
     if (dynamicPricing) {
@@ -197,6 +210,43 @@ function PricingManager() {
     }
     
     return explanation;
+  };
+
+  const handleSavePrices = async () => {
+    try {
+      console.log('Save button clicked');
+      
+      // Get the current room types
+      const deluxeRoom = roomTypes.find(room => room.name === 'Deluxe');
+      const premiumSuite = roomTypes.find(room => room.name === 'Premium Suite');
+      
+      // Calculate final prices including all multipliers
+      const finalDeluxePrice = calculateFinalPrice(deluxeRoom.basePrice);
+      const finalPremiumSuitePrice = calculateFinalPrice(premiumSuite.basePrice);
+      
+      console.log('Final prices being sent:', {
+        deluxePrice: finalDeluxePrice,
+        premiumSuitePrice: finalPremiumSuitePrice
+      });
+
+      const response = await axios.put('http://localhost:3001/api/hotels/update-prices', {
+        deluxePrice: finalDeluxePrice,
+        premiumSuitePrice: finalPremiumSuitePrice
+      });
+      
+      console.log('Server response:', response.data);
+      
+      setMessage({ 
+        type: 'success', 
+        text: `Prices updated successfully! Deluxe: ₹${response.data.updatedPrices.deluxe}, Premium Suite: ₹${response.data.updatedPrices.premiumSuite}` 
+      });
+    } catch (error) {
+      console.error('Error updating prices:', error);
+      setMessage({ 
+        type: 'error', 
+        text: error.response?.data?.error || 'Error updating prices. Please try again.' 
+      });
+    }
   };
 
   return (
@@ -503,7 +553,7 @@ function PricingManager() {
                     mb: 2,
                   }}
                 >
-                  ₹{calculateFinalPrice()}
+                  ₹{calculateFinalPrice(basePrice)}
                 </MotionTypography>
               </Tooltip>
               <Typography
@@ -521,6 +571,21 @@ function PricingManager() {
           </MotionCard>
         </Grid>
       </Grid>
+
+      {message.text && (
+        <Alert severity={message.type} sx={{ mt: 2 }}>
+          {message.text}
+        </Alert>
+      )}
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSavePrices}
+        sx={{ mt: 2 }}
+      >
+        Save Prices
+      </Button>
 
       <Dialog
         open={openDialog}

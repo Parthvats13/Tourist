@@ -216,7 +216,19 @@ def get_community_stories():
 def get_hotels():
     logger.info("Hotels endpoint called")
     try:
-        data = load_data('hotel_data.json')
+        # Use the correct path to HimYatra_companion directory
+        file_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
+                                'HimYatra_companion', 'Server', 'data', 'hotel_data.json')
+        
+        logger.info(f"Attempting to load hotel data from: {file_path}")
+        
+        if not os.path.exists(file_path):
+            logger.error(f"File not found: {file_path}")
+            raise FileNotFoundError(f"Hotel data file not found: {file_path}")
+            
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+            
         response = {
             'success': True,
             'data': data,
