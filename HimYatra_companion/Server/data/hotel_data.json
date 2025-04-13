@@ -25,7 +25,7 @@
       {
         "id": "r001",
         "name": "Deluxe",
-        "price": 3000,
+        "price": 6129,
         "capacity": 2,
         "description": "Spacious room with private balcony and mountain views",
         "image": "deluxe"
@@ -33,7 +33,7 @@
       {
         "id": "r002",
         "name": "Premium Suite",
-        "price": 7500,
+        "price": 168545,
         "capacity": 4,
         "description": "Luxury suite with separate living area and panoramic views",
         "image": "premium"
@@ -86,7 +86,7 @@
       {
         "id": "r003",
         "name": "Deluxe",
-        "price": 3000,
+        "price": 6129,
         "capacity": 2,
         "description": "Cozy wooden cottage with river view and private deck",
         "image": "deluxe"
@@ -94,7 +94,7 @@
       {
         "id": "r004",
         "name": "Premium Suite",
-        "price": 7500,
+        "price": 168545,
         "capacity": 6,
         "description": "Two-bedroom suite with living area and mountain views",
         "image": "premium"
@@ -147,7 +147,7 @@
       {
         "id": "r005",
         "name": "Deluxe",
-        "price": 3000,
+        "price": 6129,
         "capacity": 2,
         "description": "Peaceful room with garden view and traditional décor",
         "image": "deluxe"
@@ -155,7 +155,7 @@
       {
         "id": "r006",
         "name": "Premium Suite",
-        "price": 7500,
+        "price": 168545,
         "capacity": 3,
         "description": "Spacious suite with valley views and meditation corner",
         "image": "premium"

@@ -102,6 +102,34 @@
       "checkOut": "15 April 2025",
       "roomType": "Premium Suite",
       "Guests": 1
+    },
+    {
+      "roomType": "Standard Room",
+      "Guests": 2,
+      "roomAlloted": "no",
+      "checkIn": "13 April 2025",
+      "username": "Mountain Explorer",
+      "nationality": "India",
+      "gender": "Male",
+      "price": 13000,
+      "checkOut": "15 April 2025",
+      "id": 5,
+      "contact": "+91 96861 13721",
+      "domicile": "Delhi"
+    },
+    {
+      "gender": "Male",
+      "roomType": "Deluxe",
+      "roomAlloted": "no",
+      "price": 6000,
+      "contact": "+91 96861 13721",
+      "nationality": "India",
+      "id": 5,
+      "username": "Uday",
+      "checkIn": "13 April 2025",
+      "domicile": "Delhi",
+      "checkOut": "16 April 2025",
+      "Guests": 2
     }
   ]
 }
