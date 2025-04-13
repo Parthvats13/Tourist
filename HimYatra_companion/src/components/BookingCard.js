@@ -162,7 +162,7 @@ const BookingCard = ({ booking }) => {
           variant="h5" 
           sx={{ 
             fontFamily: 'Lato',
-            color: 'rgba(255, 255, 255, 0.95)',
+            color: 'rgb(21,120,17)',
             fontWeight: 300,
             fontSize: '2rem',
             mb: 3,
@@ -188,6 +188,19 @@ const BookingCard = ({ booking }) => {
         <InfoContainer sx={{ mb: 4 }}>
           <InfoLabel>Domicile</InfoLabel>
           <InfoValue>{booking.domicile}</InfoValue>
+        </InfoContainer>
+
+        <InfoContainer sx={{ mb: 3 }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3 }}>
+            <Box>
+              <InfoLabel>Guests</InfoLabel>
+              <InfoValue>{booking.Guests}</InfoValue>
+            </Box>
+            <Box>
+              <InfoLabel>Room Type</InfoLabel>
+              <InfoValue>{booking.roomType}</InfoValue>
+            </Box>
+          </Box>
         </InfoContainer>
       </MotionBox>
     </StyledPaper>

@@ -58,7 +58,7 @@ struct DiscoverView: View {
                                 }
                             }
                         } header: {
-                            DiscoverSectionHeader(title: "Hidden Gems")
+                            DiscoverSectionHeader(title: "Gems Nearby")
                         }
 
                         // MARK: - Local Guides Section
