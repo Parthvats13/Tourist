@@ -90,18 +90,18 @@
       "roomAlloted": "no"
     },
     {
-      "domicile": "pakisthan",
-      "Guests": 2,
-      "nationality": "muslim",
-      "username": "Moin makda",
+      "id": 5,
+      "username": "Aryaman Jaiswal",
+      "gender": "Male",
       "roomAlloted": "no",
-      "checkOut": "15 April 2025",
-      "contact": "696969",
-      "gender": "binary",
+      "contact": "+91 91368 16530",
+      "price": 32526,
+      "nationality": "India",
       "checkIn": "13 April 2025",
+      "domicile": "Delhi",
+      "checkOut": "15 April 2025",
       "roomType": "Premium Suite",
-      "price": 15000,
-      "id": 5
+      "Guests": 1
     }
   ]
 }

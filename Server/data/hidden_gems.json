@@ -35,7 +35,7 @@
       "id": "b5a4d3c2-b1a0-f9e8-d7c6-b5a4d3c2b1a0",
       "name": "Chitkul",
       "location": "Kinnaur",
-      "image": "chitkul",
+      "image": "manali_image",
       "visitors": 145,
       "rating": 4.9
     },
@@ -43,7 +43,7 @@
       "id": "a4d3c2b1-a0f9-e8d7-c6b5-a4d3c2b1a0f9",
       "name": "Tirthan Valley",
       "location": "Kullu",
-      "image": "tirthan_valley",
+      "image": "dharamshala_image",
       "visitors": 118,
       "rating": 4.7
     }

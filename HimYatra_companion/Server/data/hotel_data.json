@@ -8,11 +8,11 @@
     "price": 8500,
     "rating": 4.7,
     "images": [
-      "shimla_hotel_1",
-      "shimla_hotel_2",
-      "shimla_hotel_3"
+      "hotel1",
+      "hotel2",
+      "hotel3"
     ],
-    "mainImage": "shimla_hotel_main",
+    "mainImage": "hotel2",
     "amenities": [
       "WiFi",
       "Restaurant",
@@ -25,7 +25,7 @@
       {
         "id": "r001",
         "name": "Deluxe",
-        "price": 3071,
+        "price": 6942,
         "capacity": 2,
         "description": "Spacious room with private balcony and mountain views",
         "image": "shimla_deluxe_room"
@@ -33,7 +33,7 @@
       {
         "id": "r002",
         "name": "Premium Suite",
-        "price": 7500,
+        "price": 16263,
         "capacity": 4,
         "description": "Luxury suite with separate living area and panoramic views",
         "image": "shimla_premium_suite"
@@ -69,11 +69,11 @@
     "price": 7500,
     "rating": 4.5,
     "images": [
-      "manali_hotel_1",
-      "manali_hotel_2",
-      "manali_hotel_3"
+      "hotel1",
+      "hotel2",
+      "hotel3"
     ],
-    "mainImage": "manali_hotel_main",
+    "mainImage": "hotel1",
     "amenities": [
       "WiFi",
       "Restaurant",
@@ -86,7 +86,7 @@
       {
         "id": "r003",
         "name": "Deluxe",
-        "price": 3071,
+        "price": 6942,
         "capacity": 2,
         "description": "Cozy wooden cottage with river view and private deck",
         "image": "manali_river_cottage"
@@ -94,7 +94,7 @@
       {
         "id": "r004",
         "name": "Premium Suite",
-        "price": 7500,
+        "price": 16263,
         "capacity": 6,
         "description": "Two-bedroom suite with living area and mountain views",
         "image": "manali_family_suite"
@@ -130,11 +130,11 @@
     "price": 6500,
     "rating": 4.8,
     "images": [
-      "dharamshala_hotel_1",
-      "dharamshala_hotel_2",
-      "dharamshala_hotel_3"
+      "hotel1",
+      "hotel2",
+      "hotel3"
     ],
-    "mainImage": "dharamshala_hotel_main",
+    "mainImage": "hotel1",
     "amenities": [
       "WiFi",
       "Meditation Center",
@@ -147,7 +147,7 @@
       {
         "id": "r005",
         "name": "Deluxe",
-        "price": 3071,
+        "price": 6942,
         "capacity": 2,
         "description": "Peaceful room with garden view and traditional décor",
         "image": "dharamshala_garden_room"
@@ -155,7 +155,7 @@
       {
         "id": "r006",
         "name": "Premium Suite",
-        "price": 7500,
+        "price": 16263,
         "capacity": 3,
         "description": "Spacious suite with valley views and meditation corner",
         "image": "dharamshala_suite"
