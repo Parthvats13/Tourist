@@ -243,3 +243,17 @@ struct APIResponse<T: Codable>: Codable {
     let data: T
     let message: String?
 }
+
+struct BookingData: Codable {
+    let username: String
+    let contact: String
+    let price: Int
+    let checkIn: String
+    let checkOut: String
+    let gender: String
+    let nationality: String
+    let domicile: String
+    let roomType: String
+    let Guests: Int
+    let roomAlloted: String
+}

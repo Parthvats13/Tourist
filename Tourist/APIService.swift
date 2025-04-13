@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 class APIService {
-    private let baseURL = "http://192.168.30.140:6969/api"
+    private let baseURL = "http://192.168.152.140:6969/api"
     private let jsonDecoder: JSONDecoder
     private let jsonEncoder: JSONEncoder
     
@@ -44,6 +44,11 @@ class APIService {
             .map(\.data)
             .decode(type: T.self, decoder: jsonDecoder)
             .eraseToAnyPublisher()
+    }
+    
+    // Modified method to use a concrete type (BookingData) instead of Any
+    func submitBooking(bookingData: [String: Any]) -> AnyPublisher<APIResponse<BookingData>, Error> {
+        return postRequest(endpoint: "bookings", body: bookingData)
     }
     
     // Helper for image downloads - not used in this example but would be needed

@@ -88,6 +88,34 @@
       "roomType": "Single",
       "Guests": 1,
       "roomAlloted": "no"
+    },
+    {
+      "domicile": "pakisthan",
+      "Guests": 2,
+      "nationality": "muslim",
+      "username": "Moin makda",
+      "roomAlloted": "no",
+      "checkOut": "15 April 2025",
+      "contact": "696969",
+      "gender": "binary",
+      "checkIn": "13 April 2025",
+      "roomType": "Premium Suite",
+      "price": 15000,
+      "id": 5
+    },
+    {
+      "roomType": "Deluxe",
+      "username": "Moin makda",
+      "Guests": 4,
+      "domicile": "pakisthan",
+      "price": 12284,
+      "id": 5,
+      "checkOut": "18 April 2025",
+      "gender": "binary",
+      "roomAlloted": "no",
+      "checkIn": "13 April 2025",
+      "contact": "696969",
+      "nationality": "muslim"
     }
   ]
 }

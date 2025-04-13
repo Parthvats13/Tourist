@@ -442,6 +442,11 @@ struct HotelDetailView: View {
                     // Book Now Button
                     Button(action: {
                         showBookingConfirmation = true
+                        // Ensure profile data is available
+                        if ProfileDetails.username.isEmpty {
+                            // If username is not set, use hotel name as fallback
+                            ProfileDetails.username = "Guest"
+                        }
                     }) {
                         Text("Pay Now")
                             .font(.headline)
@@ -605,6 +610,30 @@ struct ReviewCard2: View {
     }
 }
 
+struct DetailRow2: View {
+    let title: String
+    let value: String
+    var isHighlighted: Bool = false
+
+    var body: some View {
+        HStack(alignment: .top) {
+            Text(title)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .frame(width: 100, alignment: .leading)
+
+            Spacer()
+
+            Text(value)
+                .font(isHighlighted ? .headline : .subheadline)
+                .foregroundColor(isHighlighted ? .primary : .primary)
+                .fontWeight(isHighlighted ? .bold : .regular)
+                .multilineTextAlignment(.trailing)
+        }
+    }
+}
+
+// Update BookingConfirmationView with booking functionality
 struct BookingConfirmationView: View {
     let hotel: Hotel
     let roomType: Hotel.RoomType?
@@ -614,7 +643,14 @@ struct BookingConfirmationView: View {
     let totalAmount: Int
     @Environment(\.dismiss) private var dismiss
     @State private var isAnimating = false
-
+    @State private var isSubmittingBooking = false
+    @State private var bookingSuccess = false
+    @State private var errorMessage: String? = nil
+    
+    // Add API service for making booking requests
+    private let apiService = APIService()
+    @State private var cancellables = Set<AnyCancellable>()
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -639,6 +675,14 @@ struct BookingConfirmationView: View {
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
                             .opacity(isAnimating ? 1.0 : 0.0)
+                        
+                        if let error = errorMessage {
+                            Text(error)
+                                .font(.subheadline)
+                                .foregroundColor(.red)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                        }
                     }
                     .padding(.top, 30)
 
@@ -729,6 +773,10 @@ struct BookingConfirmationView: View {
                 }
             }
             .onAppear {
+                // Submit booking to server when view appears
+                submitBooking()
+                
+                // Show animation
                 withAnimation(.spring(response: 0.5, dampingFraction: 0.7).delay(0.2)) {
                     isAnimating = true
                 }
@@ -753,28 +801,55 @@ struct BookingConfirmationView: View {
 
         return id
     }
-}
-
-struct DetailRow2: View {
-    let title: String
-    let value: String
-    var isHighlighted: Bool = false
-
-    var body: some View {
-        HStack(alignment: .top) {
-            Text(title)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .frame(width: 100, alignment: .leading)
-
-            Spacer()
-
-            Text(value)
-                .font(isHighlighted ? .headline : .subheadline)
-                .foregroundColor(isHighlighted ? .primary : .primary)
-                .fontWeight(isHighlighted ? .bold : .regular)
-                .multilineTextAlignment(.trailing)
-        }
+    
+    // Submit booking data to server
+    private func submitBooking() {
+        isSubmittingBooking = true
+        
+        // Create booking data dictionary with required fields
+        let bookingData: [String: Any] = [
+            "id": 5, // Set ID to 5 as specified
+            "username": ProfileDetails.username,
+            "contact": ProfileDetails.contact.isEmpty ? "N/A" : ProfileDetails.contact,
+            "gender": ProfileDetails.gender.isEmpty ? "N/A" : ProfileDetails.gender,
+            "nationality": ProfileDetails.nationality.isEmpty ? "N/A" : ProfileDetails.nationality,
+            "domicile": ProfileDetails.domicile.isEmpty ? "N/A" : ProfileDetails.domicile,
+            "price": totalAmount,
+            "checkIn": checkInDate.formatted(date: .long, time: .omitted),
+            "checkOut": checkOutDate.formatted(date: .long, time: .omitted),
+            "roomType": roomType?.name ?? "Standard Room",
+            "Guests": numberOfGuests,
+            "roomAlloted": "no" // Set to "no" as specified
+        ]
+        
+        // Print booking data for debugging
+        print("Submitting booking: \(bookingData)")
+        
+        // Submit booking data to server
+        apiService.submitBooking(bookingData: bookingData)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { completion in
+                    isSubmittingBooking = false
+                    
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        errorMessage = "Failed to save booking: \(error.localizedDescription)"
+                        print("Error submitting booking: \(error)")
+                    }
+                },
+                receiveValue: { response in
+                    print("Booking response: \(response)")
+                    bookingSuccess = response.success
+                    
+                    if !response.success {
+                        errorMessage = response.message ?? "Unknown error occurred"
+                    }
+                }
+            )
+            .store(in: &cancellables)
     }
 }
 // MARK: - Plan Tab View

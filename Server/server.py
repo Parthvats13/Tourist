@@ -255,6 +255,70 @@ def ai_recommendations():
         'message': 'This endpoint is planned for future implementation'
     }), 501
 
+@app.route('/api/bookings', methods=['POST'])
+def add_booking():
+    logger.info("Add booking endpoint called")
+    try:
+        booking_data = request.json
+        logger.info(f"Received booking data: {booking_data}")
+        
+        # Define the relative path based on the server.py location
+        # Assuming server.py is in /Users/parthvats/Documents/Tourist/Server/
+        # and hotels.json is in /Users/parthvats/Documents/Tourist/HimYatra_companion/public/data/
+        # We need to go up one level and then into HimYatra_companion/public/data
+        relative_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
+                                    'HimYatra_companion', 'public', 'data', 'hotels.json')
+        
+        logger.info(f"Attempting to access hotels.json at: {relative_path}")
+        
+        try:
+            # Check if file exists
+            if not os.path.exists(relative_path):
+                logger.warning(f"Hotels file not found: {relative_path}")
+                return jsonify({
+                    'success': False,
+                    'data': None,
+                    'message': 'Hotels data file not found'
+                }), 404
+            
+            # Load the current hotel data
+            with open(relative_path, 'r') as f:
+                hotels_data = json.load(f)
+            
+            # Add the new booking
+            if "bookings" not in hotels_data:
+                hotels_data["bookings"] = []
+                
+            hotels_data["bookings"].append(booking_data)
+            
+            # Save the updated data
+            with open(relative_path, 'w') as f:
+                json.dump(hotels_data, f, indent=2)
+                
+            logger.info(f"Successfully added booking with ID: {booking_data.get('id')}")
+        except Exception as e:
+            logger.error(f"Error updating hotels.json: {str(e)}")
+            return jsonify({
+                'success': False,
+                'data': None,
+                'message': f'Error updating booking data: {str(e)}'
+            }), 500
+        
+        response = {
+            'success': True,
+            'data': booking_data,
+            'message': 'Booking added successfully'
+        }
+        return jsonify(response)
+    except Exception as e:
+        error_msg = str(e)
+        logger.error(f"Error adding booking: {error_msg}")
+        return jsonify({
+            'success': False,
+            'data': None,
+            'message': error_msg
+        }), 500
+    
 if __name__ == '__main__':
     # Ensure data directory exists
     if not os.path.exists('data'):
