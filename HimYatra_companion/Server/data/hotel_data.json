@@ -25,18 +25,18 @@
       {
         "id": "r001",
         "name": "Deluxe",
-        "price": 6942,
+        "price": 3000,
         "capacity": 2,
         "description": "Spacious room with private balcony and mountain views",
-        "image": "shimla_deluxe_room"
+        "image": "deluxe"
       },
       {
         "id": "r002",
         "name": "Premium Suite",
-        "price": 16263,
+        "price": 7500,
         "capacity": 4,
         "description": "Luxury suite with separate living area and panoramic views",
-        "image": "shimla_premium_suite"
+        "image": "premium"
       }
     ],
     "reviews": [
@@ -86,18 +86,18 @@
       {
         "id": "r003",
         "name": "Deluxe",
-        "price": 6942,
+        "price": 3000,
         "capacity": 2,
         "description": "Cozy wooden cottage with river view and private deck",
-        "image": "manali_river_cottage"
+        "image": "deluxe"
       },
       {
         "id": "r004",
         "name": "Premium Suite",
-        "price": 16263,
+        "price": 7500,
         "capacity": 6,
         "description": "Two-bedroom suite with living area and mountain views",
-        "image": "manali_family_suite"
+        "image": "premium"
       }
     ],
     "reviews": [
@@ -147,18 +147,18 @@
       {
         "id": "r005",
         "name": "Deluxe",
-        "price": 6942,
+        "price": 3000,
         "capacity": 2,
         "description": "Peaceful room with garden view and traditional décor",
-        "image": "dharamshala_garden_room"
+        "image": "deluxe"
       },
       {
         "id": "r006",
         "name": "Premium Suite",
-        "price": 16263,
+        "price": 7500,
         "capacity": 3,
         "description": "Spacious suite with valley views and meditation corner",
-        "image": "dharamshala_suite"
+        "image": "premium"
       }
     ],
     "reviews": [

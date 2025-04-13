@@ -5,7 +5,7 @@
       "excerpt": "Our overnight camping experience at this crescent-shaped lake at 14,100 ft. The night sky was magical!",
       "image": "chandratal_story",
       "author": "Michael J.",
-      "authorImage": "story_author1",
+      "authorImage": "guide_rahul",
       "date": "2025-03-22T00:00:00Z"
     },
     {
@@ -14,34 +14,34 @@
       "excerpt": "Discovered some amazing cafes tucked away in the lanes of Old Manali with stunning views and great food.",
       "image": "manali_cafes_story",
       "author": "Emma L.",
-      "authorImage": "story_author2",
+      "authorImage": "guide_rahul",
       "date": "2025-03-12T00:00:00Z"
     },
     {
       "id": "98a7e6d5-c4b3-a2d1-c0b9-a8e7-d6c5b4a3",
       "title": "Trekking to Triund: A Beginner's Guide",
       "excerpt": "My experience hiking to Triund, what to pack, where to rest, and how to prepare for your first Himalayan trek.",
-      "image": "triund_story",
+      "image": "minjar_fair",
       "author": "Raj S.",
-      "authorImage": "story_author3",
+      "authorImage": "guide_rahul",
       "date": "2025-03-02T00:00:00Z"
     },
     {
       "id": "87a6e5d4-c3b2-a1d0-b9a8-e7d6-c5b4a3d2",
       "title": "Spiritual Journey Through Kinnaur Valley",
       "excerpt": "Exploring the ancient temples and monasteries of Kinnaur, with their unique architecture blending Hindu and Buddhist influences.",
-      "image": "kinnaur_story",
+      "image": "kullu_dussehra",
       "author": "Sarah M.",
-      "authorImage": "story_author4",
+      "authorImage": "guide_rahul",
       "date": "2025-02-15T00:00:00Z"
     },
     {
       "id": "76a5e4d3-c2b1-a0d9-b8a7-e6d5-c4b3a2d1",
       "title": "Winter Wonderland in Kufri",
       "excerpt": "A magical snow-filled adventure with skiing, snowboarding, and building snowmen at this popular winter destination.",
-      "image": "kufri_story",
+      "image": "chanshal_pass",
       "author": "Priyanka T.",
-      "authorImage": "story_author5",
+      "authorImage": "guide_rahul",
       "date": "2025-01-20T00:00:00Z"
     }
   ]
